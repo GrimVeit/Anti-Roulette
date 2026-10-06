@@ -1,0 +1,51 @@
+{
+"skeleton": { "hash": "kMeW5dargPIuHc6//qkq9n9zgao", "spine": "3.8.0", "x": -89, "y": 24, "width": 176, "height": 176 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "x": -1.19, "y": 113.03 },
+	{ "name": "wheel", "parent": "bone", "length": 86.46 }
+],
+"slots": [
+	{ "name": "wheel_table", "bone": "wheel", "attachment": "wheel_table" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"wheel_table": {
+				"wheel_table": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 88.19, -89.03, -87.81, -89.03, -87.81, 86.97, 88.19, 86.97 ],
+					"hull": 4
+				}
+			}
+		}
+	}
+],
+"animations": {
+	"loading": {
+		"bones": {
+			"wheel": {
+				"rotate": [
+					{},
+					{ "time": 0.6667, "angle": 180 },
+					{ "time": 1, "angle": 90 },
+					{ "time": 1.5 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.6667, "y": -8.63 },
+					{ "time": 1.5 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.6667, "x": 1.068, "y": 1.068 },
+					{ "time": 1.5 }
+				]
+			}
+		}
+	}
+}
+}

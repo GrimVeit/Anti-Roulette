@@ -1,0 +1,76 @@
+
+winning number.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+OBJECTS1
+  rotate: false
+  xy: 1859, 183
+  size: 1922, 249
+  orig: 1922, 249
+  offset: 0, 0
+  index: -1
+OBJECTS2
+  rotate: false
+  xy: 2, 2
+  size: 1855, 430
+  orig: 1855, 430
+  offset: 0, 0
+  index: -1
+button
+  rotate: true
+  xy: 3783, 18
+  size: 414, 218
+  orig: 414, 218
+  offset: 0, 0
+  index: -1
+chip1
+  rotate: false
+  xy: 4003, 72
+  size: 30, 52
+  orig: 30, 52
+  offset: 0, 0
+  index: -1
+chip2
+  rotate: false
+  xy: 4003, 235
+  size: 31, 52
+  orig: 31, 52
+  offset: 0, 0
+  index: -1
+chip3
+  rotate: false
+  xy: 4003, 126
+  size: 30, 53
+  orig: 30, 53
+  offset: 0, 0
+  index: -1
+chip4
+  rotate: false
+  xy: 4003, 181
+  size: 31, 52
+  orig: 31, 52
+  offset: 0, 0
+  index: -1
+chip5
+  rotate: false
+  xy: 4003, 289
+  size: 31, 53
+  orig: 31, 53
+  offset: 0, 0
+  index: -1
+chip6
+  rotate: false
+  xy: 4003, 18
+  size: 30, 52
+  orig: 30, 52
+  offset: 0, 0
+  index: -1
+wheel
+  rotate: false
+  xy: 4003, 344
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1

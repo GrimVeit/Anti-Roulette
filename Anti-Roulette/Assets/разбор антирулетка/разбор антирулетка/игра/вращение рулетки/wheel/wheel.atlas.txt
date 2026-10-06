@@ -1,0 +1,34 @@
+
+wheel.png
+size: 4096,4096
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+radiance
+  rotate: false
+  xy: 2, 1023
+  size: 2383, 1990
+  orig: 2383, 1990
+  offset: 0, 0
+  index: -1
+wheel1
+  rotate: true
+  xy: 2387, 1636
+  size: 1377, 1369
+  orig: 1377, 1369
+  offset: 0, 0
+  index: -1
+wheel2
+  rotate: false
+  xy: 2, 2
+  size: 1035, 1019
+  orig: 1035, 1019
+  offset: 0, 0
+  index: -1
+wheel3
+  rotate: true
+  xy: 2387, 307
+  size: 1327, 1322
+  orig: 1327, 1322
+  offset: 0, 0
+  index: -1
