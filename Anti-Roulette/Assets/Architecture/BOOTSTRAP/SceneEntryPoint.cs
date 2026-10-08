@@ -45,7 +45,8 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
         _storeSoundSettingsPresenter = new StoreSoundSettingsPresenter(new StoreSoundSettingsModel(
                 PlayerPrefsKeys.AUDIO_VOLUME_SOUND,
                 PlayerPrefsKeys.AUDIO_VOLUME_MUSIC,
-                PlayerPrefsKeys.AUDIO_MUTED
+                PlayerPrefsKeys.AUDIO_MUTED_SOUND,
+                PlayerPrefsKeys.AUDIO_MUTED_MUSIC
             )
         );
 

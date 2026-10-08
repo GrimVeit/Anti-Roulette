@@ -13,24 +13,24 @@ public class MainState_Menu : IState
 
     public void Enter()
     {
-        //_sceneRoot.OnClickPlay_Main += ChangeSceneToGame;
-        //_sceneRoot.OnClickSettings_Main += ChangeStateToSettings;
-        //_sceneRoot.OnClickWallet_Main += ChangeStateToWallet;
-        //_sceneRoot.OnClickLeaderboard_Main += ChangeStateToLeaderboard;
-        //_sceneRoot.OnClickStore_Main += ChangeStateToStoreChooseType;
+        _sceneRoot.OnClickShop_MainRightUp += ChangeStateToShop;
+        _sceneRoot.OnClickLeaders_MainRightUp += ChangeStateToLeaderboard;
+        _sceneRoot.OnClickSettings_MainLeftUp += ChangeStateToSettings;
 
-        //_sceneRoot.ShowMainPanel();
+        _sceneRoot.ShowMainLeftUpPanel();
+        _sceneRoot.ShowMainRightUpPanel();
+        _sceneRoot.ShowMainSpinPanel();
     }
 
     public void Exit()
     {
-        //_sceneRoot.OnClickPlay_Main -= ChangeSceneToGame;
-        //_sceneRoot.OnClickSettings_Main -= ChangeStateToSettings;
-        //_sceneRoot.OnClickWallet_Main -= ChangeStateToWallet;
-        //_sceneRoot.OnClickLeaderboard_Main -= ChangeStateToLeaderboard;
-        //_sceneRoot.OnClickStore_Main -= ChangeStateToStoreChooseType;
+        _sceneRoot.OnClickShop_MainRightUp -= ChangeStateToShop;
+        _sceneRoot.OnClickLeaders_MainRightUp -= ChangeStateToLeaderboard;
+        _sceneRoot.OnClickSettings_MainLeftUp -= ChangeStateToSettings;
 
-        //_sceneRoot.HideMainPanel();
+        _sceneRoot.HideMainLeftUpPanel();
+        _sceneRoot.HideMainRightUpPanel();
+        _sceneRoot.HideMainSpinPanel();
     }
 
     private void ChangeStateToSettings()
@@ -38,18 +38,13 @@ public class MainState_Menu : IState
         _stateProvider.SetState(_stateProvider.GetState<SettingsState_Menu>());
     }
 
-    private void ChangeStateToWallet()
-    {
-        _stateProvider.SetState(_stateProvider.GetState<WalletState_Menu>());
-    }
-
     private void ChangeStateToLeaderboard()
     {
         _stateProvider.SetState(_stateProvider.GetState<LeaderboardState_Menu>());
     }
 
-    private void ChangeSceneToGame()
+    private void ChangeStateToShop()
     {
-        _sceneService.ChangeScene(new SceneTransition(Scenes.Game, LoadingType.Default));
+        _stateProvider.SetState(_stateProvider.GetState<ShopState_Menu>());
     }
 }

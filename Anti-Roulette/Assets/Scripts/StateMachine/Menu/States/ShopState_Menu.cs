@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalletState_Menu : IState
+public class ShopState_Menu : IState
 {
     private readonly IStateProvider _stateProvider;
     private readonly UIRoot_Menu _sceneRoot;
 
-    public WalletState_Menu(IStateProvider stateProvider, UIRoot_Menu sceneRoot)
+    public ShopState_Menu(IStateProvider stateProvider, UIRoot_Menu sceneRoot)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
@@ -15,16 +15,18 @@ public class WalletState_Menu : IState
 
     public void Enter()
     {
-        //_sceneRoot.OnClickExit_Wallet += ChangeStateToMain;
+        _sceneRoot.OnClickExit_ShopHeader += ChangeStateToMain;
 
-        //_sceneRoot.ShowWalletPanel();
+        _sceneRoot.ShowShopHeaderPanel();
+        _sceneRoot.ShowShopPanel();
     }
 
     public void Exit()
     {
-        //_sceneRoot.OnClickExit_Wallet -= ChangeStateToMain;
+        _sceneRoot.OnClickExit_ShopHeader -= ChangeStateToMain;
 
-        //_sceneRoot.HideWalletPanel();
+        _sceneRoot.HideShopHeaderPanel();
+        _sceneRoot.HideShopPanel();
     }
 
     private void ChangeStateToMain()

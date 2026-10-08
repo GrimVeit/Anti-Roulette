@@ -31,6 +31,6 @@ public class HoldOnStartState_Menu : AsyncState
 
     private void ChangeStateToIntro()
     {
-        _stateProvider.SetState(_stateProvider.GetState<CheckSessionState_Menu>());
+        //_stateProvider.SetState(_stateProvider.GetState<CheckSessionState_Menu>());
     }
 }

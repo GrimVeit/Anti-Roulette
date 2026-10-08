@@ -50,6 +50,8 @@ public class RegistrationState_Game : AsyncState
 
         //await _database.CreateOrUpdatePlayer(playerData);
 
+        await UniTask.CompletedTask;
+
         ChangeStateToStartMain();
     }
 

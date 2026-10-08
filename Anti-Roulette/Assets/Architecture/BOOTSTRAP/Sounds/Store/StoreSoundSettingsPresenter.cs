@@ -26,7 +26,8 @@ public class StoreSoundSettingsPresenter : ISoundSettingsInfoProvider, ISoundSet
 
     public float SoundVolume => _model.SoundVolume;
     public float MusicVolume => _model.MusicVolume;
-    public bool IsMuted => _model.IsMuted;
+    public bool IsMuted_Sound => _model.IsMuted_Sound;
+    public bool IsMuted_Music => _model.IsMuted_Music;
 
     #endregion
 
@@ -44,10 +45,16 @@ public class StoreSoundSettingsPresenter : ISoundSettingsInfoProvider, ISoundSet
         remove => _model.OnChangeMusicVolume -= value;
     }
 
-    public event Action<bool> OnChangeMute
+    public event Action<bool> OnChangeMute_Sound
     {
-        add => _model.OnChangeMute += value;
-        remove => _model.OnChangeMute -= value;
+        add => _model.OnChangeMute_Sound += value;
+        remove => _model.OnChangeMute_Sound -= value;
+    }
+
+    public event Action<bool> OnChangeMute_Music
+    {
+        add => _model.OnChangeMute_Music += value;
+        remove => _model.OnChangeMute_Music -= value;
     }
 
     #endregion
@@ -64,14 +71,14 @@ public class StoreSoundSettingsPresenter : ISoundSettingsInfoProvider, ISoundSet
         _model.SetMusicVolume(value);
     }
 
-    public void SetMute(bool value)
+    public void SetMute_Sound(bool value)
     {
-        _model.SetMute(value);
+        _model.SetMute_Sound(value);
     }
 
-    public void ToggleMute()
+    public void SetMute_Music(bool value)
     {
-        _model.ToggleMute();
+        _model.SetMute_Music(value);
     }
 
     #endregion
@@ -81,14 +88,16 @@ public interface ISoundSettingsInfoProvider
 {
     float SoundVolume { get; }
     float MusicVolume { get; }
-    bool IsMuted { get; }
+    bool IsMuted_Sound { get; }
+    bool IsMuted_Music { get; }
 }
 
 public interface ISoundSettingsEventsProvider
 {
     event Action<float> OnChangeSoundVolume;
     event Action<float> OnChangeMusicVolume;
-    event Action<bool> OnChangeMute;
+    event Action<bool> OnChangeMute_Sound;
+    event Action<bool> OnChangeMute_Music;
 }
 
 public interface ISoundSettingsProvider
@@ -96,6 +105,6 @@ public interface ISoundSettingsProvider
     void SetSoundVolume(float value);
     void SetMusicVolume(float value);
 
-    void SetMute(bool value);
-    void ToggleMute();
+    void SetMute_Sound(bool value);
+    void SetMute_Music(bool value);
 }

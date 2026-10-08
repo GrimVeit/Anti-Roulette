@@ -102,7 +102,6 @@ MonoBehaviour:
   canvas: {fileID: 2908567635795087259}
   fadeBlackPanel: {fileID: 949440542293590543}
   fadeStaticPanel: {fileID: 4382310305446188641}
-  circleTransitionUI: {fileID: 0}
   uiSceneContainer: {fileID: 6595654200273532114}
 --- !u!1 &6027337294712986427
 GameObject:
@@ -171,7 +170,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Loading...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e357760702250984e959af48f44cfa15, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1d98ec5bf9ae58c4e8018f12d7db4582, type: 2}
   m_sharedMaterial: {fileID: 1708949988898548949, guid: e357760702250984e959af48f44cfa15, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -235,7 +234,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6079110128355770984
@@ -543,7 +542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1b42a2bebb11ba84ca0f6c560469813f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36de66815746b9e43aa59b162158283b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

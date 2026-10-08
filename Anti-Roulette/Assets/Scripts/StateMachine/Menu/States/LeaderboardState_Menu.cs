@@ -15,16 +15,18 @@ public class LeaderboardState_Menu : IState
 
     public void Enter()
     {
-        //_sceneRoot.OnClickExit_Leader += ChangeStateToMain;
+        _sceneRoot.OnClickExit_LeaderboardHeader += ChangeStateToMain;
 
-        //_sceneRoot.ShowLeaderboardPanel();
+        _sceneRoot.ShowLeaderboardHeaderPanel();
+        _sceneRoot.ShowLeaderboardPanel();
     }
 
     public void Exit()
     {
-        //_sceneRoot.OnClickExit_Leader -= ChangeStateToMain;
+        _sceneRoot.OnClickExit_LeaderboardHeader -= ChangeStateToMain;
 
-        //_sceneRoot.HideLeaderboardPanel();
+        _sceneRoot.HideLeaderboardHeaderPanel();
+        _sceneRoot.HideLeaderbaordPanel();
     }
 
     private void ChangeStateToMain()

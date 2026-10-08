@@ -35,11 +35,13 @@ public class SoundModel
     {
         _settingsEvents.OnChangeSoundVolume += HandleChangeSoundVolume;
         _settingsEvents.OnChangeMusicVolume += HandleChangeMusicVolume;
-        _settingsEvents.OnChangeMute += HandleChangeMute;
+        _settingsEvents.OnChangeMute_Sound += HandleChangeMute_Sound;
+        _settingsEvents.OnChangeMute_Music += HandleChangeMute_Music;
 
         HandleChangeSoundVolume(_settingsInfo.SoundVolume);
         HandleChangeMusicVolume(_settingsInfo.MusicVolume);
-        HandleChangeMute(_settingsInfo.IsMuted);
+        HandleChangeMute_Music(_settingsInfo.IsMuted_Music);
+        HandleChangeMute_Sound(_settingsInfo.IsMuted_Sound);
 
         foreach (Sound sound in _sounds.Values)
         {
@@ -51,7 +53,8 @@ public class SoundModel
     {
         _settingsEvents.OnChangeSoundVolume -= HandleChangeSoundVolume;
         _settingsEvents.OnChangeMusicVolume -= HandleChangeMusicVolume;
-        _settingsEvents.OnChangeMute -= HandleChangeMute;
+        _settingsEvents.OnChangeMute_Sound -= HandleChangeMute_Sound;
+        _settingsEvents.OnChangeMute_Music -= HandleChangeMute_Music;
 
         foreach (Sound sound in _sounds.Values)
         {
@@ -110,11 +113,21 @@ public class SoundModel
         }
     }
 
-    private void HandleChangeMute(bool value)
+    private void HandleChangeMute_Sound(bool value)
     {
         foreach (Sound sound in _sounds.Values)
         {
-            sound.SetMuted(value);
+            if(sound.AudioType == AudioType.Sound)
+               sound.SetMuted(value);
+        }
+    }
+
+    private void HandleChangeMute_Music(bool value)
+    {
+        foreach (Sound sound in _sounds.Values)
+        {
+            if (sound.AudioType == AudioType.Music)
+                sound.SetMuted(value);
         }
     }
 }

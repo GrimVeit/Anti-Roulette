@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 874792165}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 430.9532, y: 646.0806, z: 4.324947}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,44 +312,6 @@ MonoBehaviour:
     isLoop: 1
     isPlayAwake: 1
     audioType: 1
-  - id: Click
-    audioSource: {fileID: 952061489}
-    audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
-    volume: 0.8
-    pitch: 1
-    isLoop: 0
-    isPlayAwake: 0
-    audioType: 0
-  - id: Click_Back
-    audioSource: {fileID: 952061489}
-    audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
-    volume: 0.7
-    pitch: 0.9
-    isLoop: 0
-    isPlayAwake: 0
-    audioType: 0
-  - id: Transition
-    audioSource: {fileID: 952061489}
-    audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
-    volume: 0.8
-    pitch: 1.1
-    isLoop: 0
-    isPlayAwake: 0
-    audioType: 0
-  backgroundDatas:
-  - {fileID: 11400000, guid: ca72b562650db2d4db24398c406486c6, type: 2}
-  - {fileID: 11400000, guid: 4b51c2cc270b5f14193bd620841e9ad6, type: 2}
-  - {fileID: 11400000, guid: cc51c96c7c6020145b8c53779c02b8c1, type: 2}
-  - {fileID: 11400000, guid: 38b9a313e34af4e42ac763d1e31a270a, type: 2}
-  - {fileID: 11400000, guid: e7cb230cbf484ed408b1f66fa0363313, type: 2}
-  - {fileID: 11400000, guid: 1a4249610f8631d45a66cb71b12b8d1a, type: 2}
-  - {fileID: 11400000, guid: b973a37502ff0c941a819ee7918c11e5, type: 2}
-  - {fileID: 11400000, guid: d82ac4a6a9ecd3044b3fa59201cd342c, type: 2}
-  cardsDesignDatas:
-  - {fileID: 11400000, guid: aa06d03cf2a2d5a499a7e14c3b6b8122, type: 2}
-  - {fileID: 11400000, guid: 3aed1ff049ee45d42871adad9cb18ea4, type: 2}
-  - {fileID: 11400000, guid: c8ab7a43d2cf8de49aa2c7a7141b7266, type: 2}
-  - {fileID: 11400000, guid: 164eedb92099ab342a1d92fb811675a2, type: 2}
   uIRoot: {fileID: 6798139332153747493, guid: 44fab8f28d003b54f891a96e5d7c8605, type: 3}
 --- !u!1 &952061487
 GameObject:
@@ -632,7 +594,7 @@ Transform:
   m_GameObject: {fileID: 1396435099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

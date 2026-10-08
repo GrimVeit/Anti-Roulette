@@ -15,16 +15,18 @@ public class SettingsState_Menu : IState
 
     public void Enter()
     {
-        //_sceneRoot.OnClickExit_Settings += ChangeStateToMain;
+        _sceneRoot.OnClickExit_Settings += ChangeStateToMain;
 
-        //_sceneRoot.ShowSettingsPanel();
+        _sceneRoot.ShowSettingsPanel();
+        _sceneRoot.ShowBackgroundFadePanel();
     }
 
     public void Exit()
     {
-        //_sceneRoot.OnClickExit_Settings -= ChangeStateToMain;
+        _sceneRoot.OnClickExit_Settings -= ChangeStateToMain;
 
-        //_sceneRoot.HideSettingsPanel();
+        _sceneRoot.HideSettingsPanel();
+        _sceneRoot.HideBackgroundFadePanel();
     }
 
     private void ChangeStateToMain()

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class VolumeSettingsModel
 {
@@ -6,10 +7,7 @@ public class VolumeSettingsModel
     private readonly ISoundSettingsProvider settingsProvider;
     private readonly ISoundSettingsEventsProvider eventsProvider;
 
-    public VolumeSettingsModel(
-        ISoundSettingsInfoProvider infoProvider,
-        ISoundSettingsProvider settingsProvider,
-        ISoundSettingsEventsProvider eventsProvider)
+    public VolumeSettingsModel(ISoundSettingsInfoProvider infoProvider, ISoundSettingsProvider settingsProvider, ISoundSettingsEventsProvider eventsProvider)
     {
         this.infoProvider = infoProvider;
         this.settingsProvider = settingsProvider;
@@ -18,43 +16,43 @@ public class VolumeSettingsModel
 
     public void Initialize()
     {
-        eventsProvider.OnChangeSoundVolume += HandleSoundVolumeChanged;
-        eventsProvider.OnChangeMusicVolume += HandleMusicVolumeChanged;
+        eventsProvider.OnChangeMute_Sound += HandleSoundVolumeChanged;
+        eventsProvider.OnChangeMute_Music += HandleMusicVolumeChanged;
 
-        OnSoundVolumeChanged?.Invoke(infoProvider.SoundVolume);
-        OnMusicVolumeChanged?.Invoke(infoProvider.MusicVolume);
+        OnSoundMuteChanged?.Invoke(infoProvider.IsMuted_Sound);
+        OnMusicMuteChanged?.Invoke(infoProvider.IsMuted_Music);
     }
 
     public void Dispose()
     {
-        eventsProvider.OnChangeSoundVolume -= HandleSoundVolumeChanged;
-        eventsProvider.OnChangeMusicVolume -= HandleMusicVolumeChanged;
+        eventsProvider.OnChangeMute_Sound -= HandleSoundVolumeChanged;
+        eventsProvider.OnChangeMute_Music -= HandleMusicVolumeChanged;
     }
 
-    public void SetSoundVolume(float value)
+    public void SetSoundVolume(bool isMute)
     {
-        settingsProvider.SetSoundVolume(value);
+        settingsProvider.SetMute_Sound(isMute);
     }
 
-    public void SetMusicVolume(float value)
+    public void SetMusicVolume(bool isMute)
     {
-        settingsProvider.SetMusicVolume(value);
+        settingsProvider.SetMute_Music(isMute);
     }
 
-    private void HandleSoundVolumeChanged(float value)
+    private void HandleSoundVolumeChanged(bool value)
     {
-        OnSoundVolumeChanged?.Invoke(value);
+        OnSoundMuteChanged?.Invoke(value);
     }
 
-    private void HandleMusicVolumeChanged(float value)
+    private void HandleMusicVolumeChanged(bool value)
     {
-        OnMusicVolumeChanged?.Invoke(value);
+        OnMusicMuteChanged?.Invoke(value);
     }
 
     #region Output
 
-    public event Action<float> OnSoundVolumeChanged;
-    public event Action<float> OnMusicVolumeChanged;
+    public event Action<bool> OnSoundMuteChanged;
+    public event Action<bool> OnMusicMuteChanged;
 
     #endregion
 }

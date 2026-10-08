@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +11,8 @@ public class VolumeSettingsView : View
 
     public void Initialize()
     {
-        soundVolume.OnChangeVolume += HandleSoundVolumeChanged;
-        musicVolume.OnChangeVolume += HandleMusicVolumeChanged;
+        soundVolume.OnChangeMute += HandleSoundVolumeChanged;
+        musicVolume.OnChangeMute += HandleMusicVolumeChanged;
 
         soundVolume.Initialize();
         musicVolume.Initialize();
@@ -19,78 +20,119 @@ public class VolumeSettingsView : View
 
     public void Dispose()
     {
-        soundVolume.OnChangeVolume -= HandleSoundVolumeChanged;
-        musicVolume.OnChangeVolume -= HandleMusicVolumeChanged;
+        soundVolume.OnChangeMute -= HandleSoundVolumeChanged;
+        musicVolume.OnChangeMute -= HandleMusicVolumeChanged;
 
         soundVolume.Dispose();
         musicVolume.Dispose();
     }
 
-    public void SetSoundVolume(float value)
+    public void SetSoundVolume(bool value)
     {
         soundVolume.SetValue(value);
     }
 
-    public void SetMusicVolume(float value)
+    public void SetMusicVolume(bool value)
     {
         musicVolume.SetValue(value);
     }
 
-    private void HandleSoundVolumeChanged(float value)
+    private void HandleSoundVolumeChanged(bool value)
     {
-        OnChangeSoundVolume?.Invoke(value);
+        OnChangeSoundMute?.Invoke(value);
     }
 
-    private void HandleMusicVolumeChanged(float value)
+    private void HandleMusicVolumeChanged(bool value)
     {
-        OnChangeMusicVolume?.Invoke(value);
+        OnChangeMusicMute?.Invoke(value);
     }
 
     #region Output
 
-    public event Action<float> OnChangeSoundVolume;
-    public event Action<float> OnChangeMusicVolume;
+    public event Action<bool> OnChangeSoundMute;
+    public event Action<bool> OnChangeMusicMute;
 
     #endregion
+
 
 
     [Serializable]
     private class VolumeSetting
     {
-        [SerializeField] private Slider sliderVolume;
-        [SerializeField] private TextMeshProUGUI textVolume;
+        [SerializeField] private Button buttonOn;
+        [SerializeField] private Button buttonOff;
+
+        [SerializeField] private RectTransform fillOn;
+        [SerializeField] private RectTransform fillOff;
+
+        [SerializeField] private float duration = 0.2f;
+        [SerializeField] private Ease ease = Ease.OutQuad;
+
+        private const float MinWidth = 0f;
+        private const float MaxWidth = 150f;
+
+        private Sequence _sequence;
 
         public void Initialize()
         {
-            sliderVolume.onValueChanged.AddListener(OnValueChanged);
-
-            UpdateText(sliderVolume.value);
+            buttonOn.onClick.AddListener(ClickOn);
+            buttonOff.onClick.AddListener(ClickOff);
         }
 
         public void Dispose()
         {
-            sliderVolume.onValueChanged.RemoveListener(OnValueChanged);
+            buttonOn.onClick.RemoveListener(ClickOn);
+            buttonOff.onClick.RemoveListener(ClickOff);
+            _sequence?.Kill();
         }
 
-        public void SetValue(float value)
+        public void SetValue(bool isMute)
         {
-            sliderVolume.SetValueWithoutNotify(value);
+            _sequence?.Kill();
 
-            UpdateText(value);
+            // —тартовое состо€ние: у активного Ч максимум, у неактивного Ч минимум
+            if (isMute)
+            {
+                SetWidth(fillOff, MaxWidth);
+                SetWidth(fillOn, MinWidth);
+            }
+            else
+            {
+                SetWidth(fillOn, MaxWidth);
+                SetWidth(fillOff, MinWidth);
+            }
+
+            _sequence = DOTween.Sequence();
+
+            if (isMute)
+            {
+                _sequence
+                    .Append(fillOff.DOSizeDelta(new Vector2(MinWidth, fillOff.sizeDelta.y), duration).SetEase(ease))
+                    .Append(fillOn.DOSizeDelta(new Vector2(MaxWidth, fillOn.sizeDelta.y), duration).SetEase(ease));
+            }
+            else
+            {
+                _sequence
+                    .Append(fillOn.DOSizeDelta(new Vector2(MinWidth, fillOn.sizeDelta.y), duration).SetEase(ease))
+                    .Append(fillOff.DOSizeDelta(new Vector2(MaxWidth, fillOff.sizeDelta.y), duration).SetEase(ease));
+            }
         }
 
-        private void OnValueChanged(float value)
+        private static void SetWidth(RectTransform rt, float width)
         {
-            UpdateText(value);
-
-            OnChangeVolume?.Invoke(value);
+            rt.sizeDelta = new Vector2(width, rt.sizeDelta.y);
         }
 
-        private void UpdateText(float value)
+        private void ClickOn()
         {
-            textVolume.text = $"{Mathf.RoundToInt(value * 100)}";
+            OnChangeMute?.Invoke(true);
         }
 
-        public event Action<float> OnChangeVolume;
+        private void ClickOff()
+        {
+            OnChangeMute?.Invoke(false);
+        }
+
+        public event Action<bool> OnChangeMute;
     }
 }
