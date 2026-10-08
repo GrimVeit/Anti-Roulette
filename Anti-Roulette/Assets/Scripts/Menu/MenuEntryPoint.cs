@@ -12,6 +12,9 @@ public class MenuEntryPoint : SceneEntryPoint
     private VolumeSettingsPresenter _volumeSettingsPresenter;
     private MoneyVisualPresenter _moneyVisualPresenter;
 
+    private BackgroundShopVisualPresenter _backgroundShopVisualPresenter;
+    private ShopTypeVisualPresenter _shopTypeVisualPresenter;
+
     private VideoPresenter _videoPresenter;
     private StateMachine_Menu _stateMachine;
 
@@ -58,6 +61,9 @@ public class MenuEntryPoint : SceneEntryPoint
         _volumeSettingsPresenter?.Dispose();
         _moneyVisualPresenter?.Dispose();
 
+        _backgroundShopVisualPresenter?.Dispose();
+        _shopTypeVisualPresenter?.Dispose();
+
         _stateMachine?.Dispose();
     }
 
@@ -70,12 +76,18 @@ public class MenuEntryPoint : SceneEntryPoint
         _volumeSettingsPresenter = new VolumeSettingsPresenter(new VolumeSettingsModel(_storeSoundSettingsPresenter,_storeSoundSettingsPresenter,_storeSoundSettingsPresenter), _viewContainer.GetView<VolumeSettingsView>());
         _moneyVisualPresenter = new MoneyVisualPresenter(new MoneyVisualModel(_storeMoneyPresenter,_storeMoneyPresenter),_viewContainer.GetView<MoneyVisualView>());
 
+        _backgroundShopVisualPresenter = new BackgroundShopVisualPresenter(new BackgroundShopVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _storeMoneyPresenter), _viewContainer.GetView<BackgroundShopVisualView>());
+        _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(), _viewContainer.GetView<ShopTypeVisualView>());
+
         _stateMachine = new StateMachine_Menu(container);
 
         _uIRoot.Initialize();
         Debug.Log("LOL");
         _volumeSettingsPresenter.Initialize();
         _moneyVisualPresenter.Initialize();
+
+        _backgroundShopVisualPresenter.Initialize();
+        _shopTypeVisualPresenter.Initialize();
 
         return UniTask.CompletedTask;
     }

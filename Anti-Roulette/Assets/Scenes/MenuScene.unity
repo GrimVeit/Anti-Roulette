@@ -312,6 +312,12 @@ MonoBehaviour:
     isLoop: 1
     isPlayAwake: 1
     audioType: 1
+  backgroundDatas:
+  - {fileID: 11400000, guid: e1e96b7d819828a4582564e033f6e659, type: 2}
+  - {fileID: 11400000, guid: 47be716dd60fa97408679b53c6c8cb27, type: 2}
+  - {fileID: 11400000, guid: 483a5d93aeba0aa4e8e64b4627f89a89, type: 2}
+  - {fileID: 11400000, guid: af2667c6fb92e1c4da611d283a9bcc4c, type: 2}
+  - {fileID: 11400000, guid: 5abcf02bba4ff3b4da37bf83b484d915, type: 2}
   uIRoot: {fileID: 6798139332153747493, guid: 44fab8f28d003b54f891a96e5d7c8605, type: 3}
 --- !u!1 &952061487
 GameObject:
