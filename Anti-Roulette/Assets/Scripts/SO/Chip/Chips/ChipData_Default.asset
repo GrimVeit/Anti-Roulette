@@ -15,5 +15,5 @@ MonoBehaviour:
   index: 0
   nameTable: Default
   sprite: {fileID: 21300000, guid: 212e0ae78cee0d249966ac1a4a9b1af6, type: 3}
-  spriteShop: {fileID: 21300000, guid: bdff77cebda64684b89a5de47357933c, type: 3}
+  spriteShop: {fileID: 21300000, guid: 212e0ae78cee0d249966ac1a4a9b1af6, type: 3}
   price: 0

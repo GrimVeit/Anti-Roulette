@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb3c572d895f75448d4f4671d911db7, type: 3}
   m_Name: ChipData_10
   m_EditorClassIdentifier: 
-  index: 9
-  nameTable: 9
+  index: 10
+  nameTable: 10
   sprite: {fileID: 21300000, guid: c80b69c252a7f99488001b5222c60fd3, type: 3}
   spriteShop: {fileID: 21300000, guid: 0a047ba4b593fc147bac49964c8756c4, type: 3}
   price: 0

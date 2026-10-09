@@ -19,6 +19,7 @@ public static class PlayerPrefsKeys
     //SHOP
     public const string BACKGROUNDS = "store.background";
     public const string WHEELS = "store.wheel";
+    public const string CHIPS = "store.chip";
 
     //PROFILE
     public const string NICKNAME = "profile.nickname";

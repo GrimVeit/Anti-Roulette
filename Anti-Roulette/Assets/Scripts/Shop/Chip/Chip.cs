@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class Background
+public class Chip
 {
     public int Index { get; }
     public string Name { get; }
@@ -9,7 +9,7 @@ public sealed class Background
     public int Price { get; }
     public bool IsOpened { get; private set; }
 
-    public Background(int index, string name, Sprite spriteShop, Sprite sprite, int price, bool isOpened)
+    public Chip(int index, string name, Sprite spriteShop, Sprite sprite, int price, bool isOpened)
     {
         Index = index;
         Name = name;
@@ -29,4 +29,3 @@ public sealed class Background
         IsOpened = false;
     }
 }
-

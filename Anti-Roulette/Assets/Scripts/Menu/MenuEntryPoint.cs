@@ -14,7 +14,12 @@ public class MenuEntryPoint : SceneEntryPoint
 
     private BackgroundShopVisualPresenter _backgroundShopVisualPresenter;
     private WheelShopVisualPresenter _wheelShopVisualPresenter;
+    private ChipShopVisualPresenter _chipShopVisualPresenter;
     private ShopTypeVisualPresenter _shopTypeVisualPresenter;
+
+    private BackgroundSelectVisualPresenter _backgroundSelectVisualPresenter;
+    private WheelSelectVisualPresenter _wheelSelectVisualPresenter;
+    private ChipSelectVisualPresenter _chipSelectVisualPresenter;
 
     private VideoPresenter _videoPresenter;
     private StateMachine_Menu _stateMachine;
@@ -64,7 +69,12 @@ public class MenuEntryPoint : SceneEntryPoint
 
         _backgroundShopVisualPresenter?.Dispose();
         _wheelShopVisualPresenter?.Dispose();
+        _chipShopVisualPresenter?.Dispose();
         _shopTypeVisualPresenter?.Dispose();
+
+        _backgroundSelectVisualPresenter?.Dispose();
+        _wheelSelectVisualPresenter?.Dispose();
+        _chipSelectVisualPresenter?.Dispose();
 
         _stateMachine?.Dispose();
     }
@@ -80,7 +90,12 @@ public class MenuEntryPoint : SceneEntryPoint
 
         _backgroundShopVisualPresenter = new BackgroundShopVisualPresenter(new BackgroundShopVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _storeMoneyPresenter), _viewContainer.GetView<BackgroundShopVisualView>());
         _wheelShopVisualPresenter = new WheelShopVisualPresenter(new WheelShopVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _storeMoneyPresenter), _viewContainer.GetView<WheelShopVisualView>());
+        _chipShopVisualPresenter = new ChipShopVisualPresenter(new ChipShopVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter, _storeMoneyPresenter), _viewContainer.GetView<ChipShopVisualView>());
         _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(), _viewContainer.GetView<ShopTypeVisualView>());
+
+        _backgroundSelectVisualPresenter = new BackgroundSelectVisualPresenter(new BackgroundSelectVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter), _viewContainer.GetView<BackgroundSelectVisualView>());
+        _wheelSelectVisualPresenter = new WheelSelectVisualPresenter(new WheelSelectVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter), _viewContainer.GetView<WheelSelectVisualView>());
+        _chipSelectVisualPresenter = new ChipSelectVisualPresenter(new ChipSelectVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter), _viewContainer.GetView<ChipSelectVisualView>());
 
         _stateMachine = new StateMachine_Menu(container);
 
@@ -91,7 +106,12 @@ public class MenuEntryPoint : SceneEntryPoint
 
         _backgroundShopVisualPresenter.Initialize();
         _wheelShopVisualPresenter.Initialize();
+        _chipShopVisualPresenter.Initialize();
         _shopTypeVisualPresenter.Initialize();
+
+        _backgroundSelectVisualPresenter.Initialize();
+        _wheelSelectVisualPresenter.Initialize();
+        _chipSelectVisualPresenter.Initialize();
 
         return UniTask.CompletedTask;
     }

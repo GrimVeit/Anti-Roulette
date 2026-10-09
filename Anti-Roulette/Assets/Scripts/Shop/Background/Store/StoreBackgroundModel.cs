@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public sealed class StoreBackgroundModel
@@ -71,6 +70,13 @@ public sealed class StoreBackgroundModel
         // Если выбранный фон отсутствует — используем дефолтный.
         if (!_backgrounds.ContainsKey(_currentBackgroundIndex))
             _currentBackgroundIndex = defaultIndex;
+
+        if(_backgrounds.TryGetValue(_currentBackgroundIndex, out Background background))
+        {
+            if(!background.IsOpened)
+                _currentBackgroundIndex = defaultIndex;
+        }
+
 
         foreach (var item in _backgrounds)
         {

@@ -74,6 +74,12 @@ public class StoreWheelModel
         if (!_wheels.ContainsKey(_currentWheelIndex))
             _currentWheelIndex = defaultIndex;
 
+        if (_wheels.TryGetValue(_currentWheelIndex, out Wheel wheel))
+        {
+            if (!wheel.IsOpened)
+                _currentWheelIndex = defaultIndex;
+        }
+
         foreach (var item in _wheels)
         {
             Debug.Log($"BACKGROUND INDEX - {item.Key}, IS OPEN - {item.Value.IsOpened}");
