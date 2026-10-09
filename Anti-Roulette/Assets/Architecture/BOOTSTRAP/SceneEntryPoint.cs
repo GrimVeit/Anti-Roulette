@@ -15,7 +15,7 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
     [Header("Scene sounds")]
     [SerializeField] private List<Sound> sounds = new();
     [SerializeField] private List<BackgroundDataSO> backgroundDatas = new();
-    //[SerializeField] private List<CardsDesignDataSO> cardsDesignDatas = new();
+    [SerializeField] private List<WheelDataSO> wheelDatas = new();
 
     // SOUND
     protected StoreSoundSettingsPresenter _storeSoundSettingsPresenter;
@@ -26,6 +26,7 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
 
     ////BACKGROUND
     protected StoreBackgroundPresenter _storeBackgroundPresenter;
+    protected StoreWheelPresenter _storeWheelPresenter;
 
     ////CARD DESIGN
     //protected StoreCardsDesignPresenter _storeCardsDesignPresenter;
@@ -86,6 +87,14 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
         _storeBackgroundPresenter.Initialize();
 
 
+        _storeWheelPresenter = new StoreWheelPresenter(new StoreWheelModel(wheelDatas));
+
+        container.RegisterInstance<IWheelInfoProvider>(_storeWheelPresenter);
+        container.RegisterInstance<IWheelListener>(_storeWheelPresenter);
+        container.RegisterInstance<IWheelProvider>(_storeWheelPresenter);
+        _storeWheelPresenter.Initialize();
+
+
         //// -------------------------------------------------
         //// CARD DESIGNS
         //// -------------------------------------------------
@@ -116,7 +125,7 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
         _storeMoneyPresenter?.Dispose();
         _storeSoundSettingsPresenter?.Dispose();
         _storeBackgroundPresenter?.Dispose();
-        //_storeCardsDesignPresenter?.Dispose();
+        _storeWheelPresenter?.Dispose();
         //_storePlayerProfilePresenter?.Dispose();
 
         await OnBaseShutdown();
@@ -184,6 +193,7 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
         _storeSoundSettingsPresenter?.Dispose();
         _storeMoneyPresenter?.Dispose();
         _storeBackgroundPresenter?.Dispose();
+        _storeWheelPresenter?.Dispose();
         //_storeCardsDesignPresenter?.Dispose();
         //_storePlayerProfilePresenter?.Dispose();
     }

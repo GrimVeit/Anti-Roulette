@@ -32,7 +32,7 @@ public class BackgroundShopVisual : MonoBehaviour
     {
         _background = background;
 
-        imageSprite.sprite = _background.Sprite;
+        imageSprite.sprite = _background.SpriteShop;
         textPrice.text = _background.Price.ToString();
     }
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb3c572d895f75448d4f4671d911db7, type: 3}
+  m_Name: ChipData_9
+  m_EditorClassIdentifier: 
+  index: 9
+  nameTable: 9
+  sprite: {fileID: 21300000, guid: 3a3a9c085a81aed4eb316106e87bf773, type: 3}
+  spriteShop: {fileID: 21300000, guid: 3d0786aeb81166745a0ca0df92891dba, type: 3}
+  price: 0

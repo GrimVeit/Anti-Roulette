@@ -1,27 +1,33 @@
 using UnityEngine;
 
-public sealed class Background
+public class Wheel
 {
     public int Index { get; }
     public string Name { get; }
-    public Sprite Sprite { get; }
     public Sprite SpriteShop { get; }
+    public Sprite SpriteMain { get; }
+    public Sprite SpriteRoulette {  get; }
+    public Sprite SpriteCross {  get; }
     public int Price { get; }
 
     public bool IsOpened { get; private set; }
 
-    public Background(
+    public Wheel(
         int index,
         string name,
+        Sprite spriteMain,
         Sprite spriteShop,
-        Sprite sprite,
+        Sprite spriteRoulette,
+        Sprite spriteCross,
         int price,
         bool isOpened)
     {
         Index = index;
         Name = name;
+        SpriteMain = spriteMain;
         SpriteShop = spriteShop;
-        Sprite = sprite;
+        SpriteRoulette = spriteRoulette;
+        SpriteCross = spriteCross;
         Price = price;
         IsOpened = isOpened;
     }
@@ -36,4 +42,3 @@ public sealed class Background
         IsOpened = false;
     }
 }
-

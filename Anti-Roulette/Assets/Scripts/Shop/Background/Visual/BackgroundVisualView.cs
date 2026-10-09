@@ -9,6 +9,6 @@ public class BackgroundVisualView : View
 
     public void SetBackground(Background background)
     {
-        imageBackground.sprite = background.Sprite;
+        imageBackground.sprite = background.SpriteShop;
     }
 }

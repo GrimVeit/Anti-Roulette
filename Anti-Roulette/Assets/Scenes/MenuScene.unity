@@ -318,6 +318,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 483a5d93aeba0aa4e8e64b4627f89a89, type: 2}
   - {fileID: 11400000, guid: af2667c6fb92e1c4da611d283a9bcc4c, type: 2}
   - {fileID: 11400000, guid: 5abcf02bba4ff3b4da37bf83b484d915, type: 2}
+  wheelDatas:
+  - {fileID: 11400000, guid: d2e615c417fa30e4d99f221996bf7222, type: 2}
+  - {fileID: 11400000, guid: ad514f02dd4209f44815acb6eb2bbcf2, type: 2}
+  - {fileID: 11400000, guid: c42641e805098db4b9613528447f396d, type: 2}
+  - {fileID: 11400000, guid: 9606c4463880a8840b2a0d2ed590965c, type: 2}
+  - {fileID: 11400000, guid: 4375fa4262d2e4f4ebd3b7732fdabb26, type: 2}
   uIRoot: {fileID: 6798139332153747493, guid: 44fab8f28d003b54f891a96e5d7c8605, type: 3}
 --- !u!1 &952061487
 GameObject:

@@ -13,6 +13,7 @@ public class MenuEntryPoint : SceneEntryPoint
     private MoneyVisualPresenter _moneyVisualPresenter;
 
     private BackgroundShopVisualPresenter _backgroundShopVisualPresenter;
+    private WheelShopVisualPresenter _wheelShopVisualPresenter;
     private ShopTypeVisualPresenter _shopTypeVisualPresenter;
 
     private VideoPresenter _videoPresenter;
@@ -62,6 +63,7 @@ public class MenuEntryPoint : SceneEntryPoint
         _moneyVisualPresenter?.Dispose();
 
         _backgroundShopVisualPresenter?.Dispose();
+        _wheelShopVisualPresenter?.Dispose();
         _shopTypeVisualPresenter?.Dispose();
 
         _stateMachine?.Dispose();
@@ -77,6 +79,7 @@ public class MenuEntryPoint : SceneEntryPoint
         _moneyVisualPresenter = new MoneyVisualPresenter(new MoneyVisualModel(_storeMoneyPresenter,_storeMoneyPresenter),_viewContainer.GetView<MoneyVisualView>());
 
         _backgroundShopVisualPresenter = new BackgroundShopVisualPresenter(new BackgroundShopVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _storeMoneyPresenter), _viewContainer.GetView<BackgroundShopVisualView>());
+        _wheelShopVisualPresenter = new WheelShopVisualPresenter(new WheelShopVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _storeMoneyPresenter), _viewContainer.GetView<WheelShopVisualView>());
         _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(), _viewContainer.GetView<ShopTypeVisualView>());
 
         _stateMachine = new StateMachine_Menu(container);
@@ -87,6 +90,7 @@ public class MenuEntryPoint : SceneEntryPoint
         _moneyVisualPresenter.Initialize();
 
         _backgroundShopVisualPresenter.Initialize();
+        _wheelShopVisualPresenter.Initialize();
         _shopTypeVisualPresenter.Initialize();
 
         return UniTask.CompletedTask;

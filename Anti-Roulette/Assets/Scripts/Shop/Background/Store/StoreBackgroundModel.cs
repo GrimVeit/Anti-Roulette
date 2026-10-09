@@ -36,10 +36,7 @@ public sealed class StoreBackgroundModel
 
             if (_backgrounds.ContainsKey(backgroundData.Index))
             {
-                Debug.LogError(
-                    $"Duplicate background index: {backgroundData.Index}"
-                );
-
+                Debug.LogError( $"Duplicate background index: {backgroundData.Index}");
                 continue;
             }
 
@@ -48,6 +45,7 @@ public sealed class StoreBackgroundModel
                 new Background(
                     backgroundData.Index,
                     backgroundData.Name,
+                    backgroundData.SpriteShop,
                     backgroundData.Sprite,
                     backgroundData.Price,
                     false
