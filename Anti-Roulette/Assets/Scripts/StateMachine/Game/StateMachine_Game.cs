@@ -21,7 +21,7 @@ public class StateMachine_Game : IStateProvider
 
     public void Initialize()
     {
-        SetState(GetState<HoldOnStartState_Game>());
+        SetState(GetState<MainState_Game>());
     }
 
     public void Dispose()

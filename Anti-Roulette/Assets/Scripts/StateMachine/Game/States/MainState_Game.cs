@@ -13,19 +13,23 @@ public class MainState_Game : IState
 
     public void Enter()
     {
+        _sceneRoot.OnClickExit_MainHeader += ChangeSceneToMenu;
 
+        _sceneRoot.ShowMainHeaderPanel();
     }
 
     public void Exit()
     {
+        _sceneRoot.OnClickExit_MainHeader -= ChangeSceneToMenu;
 
+        _sceneRoot.HideMainHeaderPanel();
     }
 
     #region OUTPUT
 
     private void ChangeSceneToMenu()
     {
-        _sceneService.ChangeScene(new SceneTransition(Scenes.Menu,LoadingType.Default));
+        _sceneService.ChangeScene(new SceneTransition(Scenes.Menu, LoadingType.Black));
     }
 
     #endregion

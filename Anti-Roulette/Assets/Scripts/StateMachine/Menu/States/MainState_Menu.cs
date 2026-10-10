@@ -17,6 +17,7 @@ public class MainState_Menu : IState
         _sceneRoot.OnClickLeaders_MainRightUp += ChangeStateToLeaderboard;
         _sceneRoot.OnClickSettings_MainLeftUp += ChangeStateToSettings;
         _sceneRoot.OnClickAvatars_MainLeftUp += ChangeStateToAvatar;
+        _sceneRoot.OnClickPlay_MainSpin += ChangeSceneToGame;
 
         _sceneRoot.ShowMainLeftUpPanel();
         _sceneRoot.ShowMainRightUpPanel();
@@ -29,6 +30,7 @@ public class MainState_Menu : IState
         _sceneRoot.OnClickLeaders_MainRightUp -= ChangeStateToLeaderboard;
         _sceneRoot.OnClickSettings_MainLeftUp -= ChangeStateToSettings;
         _sceneRoot.OnClickAvatars_MainLeftUp -= ChangeStateToAvatar;
+        _sceneRoot.OnClickPlay_MainSpin -= ChangeSceneToGame;
 
         _sceneRoot.HideMainLeftUpPanel();
         _sceneRoot.HideMainRightUpPanel();
@@ -53,5 +55,10 @@ public class MainState_Menu : IState
     private void ChangeStateToAvatar()
     {
         _stateProvider.SetState(_stateProvider.GetState<AvatarState_Menu>());
+    }
+
+    private void ChangeSceneToGame()
+    {
+        _sceneService.ChangeScene(new SceneTransition(Scenes.Game, LoadingType.Black));
     }
 }
