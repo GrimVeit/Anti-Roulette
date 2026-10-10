@@ -16,6 +16,7 @@ public class MainState_Menu : IState
         _sceneRoot.OnClickShop_MainRightUp += ChangeStateToShop;
         _sceneRoot.OnClickLeaders_MainRightUp += ChangeStateToLeaderboard;
         _sceneRoot.OnClickSettings_MainLeftUp += ChangeStateToSettings;
+        _sceneRoot.OnClickAvatars_MainLeftUp += ChangeStateToAvatar;
 
         _sceneRoot.ShowMainLeftUpPanel();
         _sceneRoot.ShowMainRightUpPanel();
@@ -27,6 +28,7 @@ public class MainState_Menu : IState
         _sceneRoot.OnClickShop_MainRightUp -= ChangeStateToShop;
         _sceneRoot.OnClickLeaders_MainRightUp -= ChangeStateToLeaderboard;
         _sceneRoot.OnClickSettings_MainLeftUp -= ChangeStateToSettings;
+        _sceneRoot.OnClickAvatars_MainLeftUp -= ChangeStateToAvatar;
 
         _sceneRoot.HideMainLeftUpPanel();
         _sceneRoot.HideMainRightUpPanel();
@@ -46,5 +48,10 @@ public class MainState_Menu : IState
     private void ChangeStateToShop()
     {
         _stateProvider.SetState(_stateProvider.GetState<ShopState_Menu>());
+    }
+
+    private void ChangeStateToAvatar()
+    {
+        _stateProvider.SetState(_stateProvider.GetState<AvatarState_Menu>());
     }
 }

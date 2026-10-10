@@ -19,6 +19,7 @@ public class StateMachine_Menu : IStateProvider
         states[typeof(SettingsState_Menu)] = new SettingsState_Menu(this, root);
         states[typeof(LeaderboardState_Menu)] = new LeaderboardState_Menu(this, root);
         states[typeof(ShopState_Menu)] = new ShopState_Menu(this, root);
+        states[typeof(AvatarState_Menu)] = new AvatarState_Menu(this, root);
     }
 
     public void Initialize()

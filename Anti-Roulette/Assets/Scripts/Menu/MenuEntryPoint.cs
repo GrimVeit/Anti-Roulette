@@ -21,6 +21,9 @@ public class MenuEntryPoint : SceneEntryPoint
     private WheelSelectVisualPresenter _wheelSelectVisualPresenter;
     private ChipSelectVisualPresenter _chipSelectVisualPresenter;
 
+    private ProfileAvatarSelectPresenter _profileAvatarSelectPresenter;
+    private ProfileAvatarVisualPresenter _profileAvatarVisualPresenter;
+
     private VideoPresenter _videoPresenter;
     private StateMachine_Menu _stateMachine;
 
@@ -76,6 +79,9 @@ public class MenuEntryPoint : SceneEntryPoint
         _wheelSelectVisualPresenter?.Dispose();
         _chipSelectVisualPresenter?.Dispose();
 
+        _profileAvatarSelectPresenter?.Dispose();
+        _profileAvatarVisualPresenter?.Dispose();
+
         _stateMachine?.Dispose();
     }
 
@@ -97,6 +103,9 @@ public class MenuEntryPoint : SceneEntryPoint
         _wheelSelectVisualPresenter = new WheelSelectVisualPresenter(new WheelSelectVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter), _viewContainer.GetView<WheelSelectVisualView>());
         _chipSelectVisualPresenter = new ChipSelectVisualPresenter(new ChipSelectVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter), _viewContainer.GetView<ChipSelectVisualView>());
 
+        _profileAvatarSelectPresenter = new ProfileAvatarSelectPresenter(new ProfileAvatarSelectModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarSelectView>());
+        _profileAvatarVisualPresenter = new ProfileAvatarVisualPresenter(new ProfileAvatarVisualModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarVisualView>());
+
         _stateMachine = new StateMachine_Menu(container);
 
         _uIRoot.Initialize();
@@ -112,6 +121,9 @@ public class MenuEntryPoint : SceneEntryPoint
         _backgroundSelectVisualPresenter.Initialize();
         _wheelSelectVisualPresenter.Initialize();
         _chipSelectVisualPresenter.Initialize();
+
+        _profileAvatarSelectPresenter.Initialize();
+        _profileAvatarVisualPresenter.Initialize();
 
         return UniTask.CompletedTask;
     }

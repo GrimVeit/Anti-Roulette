@@ -23,6 +23,9 @@ public class UIRoot_Menu : UIRoot
     [Header("Settings")]
     [SerializeField] private SettingsPanel_Menu settingsPanel;
 
+    [Header("Avatar")]
+    [SerializeField] private AvatarPanel_Menu avatarPanel;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -42,6 +45,8 @@ public class UIRoot_Menu : UIRoot
         shopPanel.Initialize();
 
         settingsPanel.Initialize();
+
+        avatarPanel.Initialize();
     }
 
     public override void Dispose()
@@ -63,6 +68,8 @@ public class UIRoot_Menu : UIRoot
         shopPanel.Dispose();
 
         settingsPanel.Dispose();
+
+        avatarPanel.Dispose();
     }
 
     private void ActivateEvents()
@@ -83,6 +90,9 @@ public class UIRoot_Menu : UIRoot
 
 
         settingsPanel.OnClickExit_Settings += ClickExit_Settings;
+
+
+        avatarPanel.OnClickExit += ClickExit_Avatar;
     }
 
     private void DeactivateEvents()
@@ -103,6 +113,9 @@ public class UIRoot_Menu : UIRoot
 
 
         settingsPanel.OnClickExit_Settings -= ClickExit_Settings;
+
+
+        avatarPanel.OnClickExit -= ClickExit_Avatar;
     }
 
     #region Input
@@ -224,6 +237,20 @@ public class UIRoot_Menu : UIRoot
         HidePanel(settingsPanel);
     }
 
+
+
+
+
+    public void ShowAvatarPanel()
+    {
+        ShowPanel(avatarPanel);
+    }
+
+    public void HideAvatarPanel()
+    {
+        HidePanel(avatarPanel);
+    }
+
     #endregion
 
     #region Output
@@ -306,6 +333,18 @@ public class UIRoot_Menu : UIRoot
     private void ClickExit_Settings()
     {
         OnClickExit_Settings?.Invoke();
+    }
+
+    #endregion
+
+
+    #region SHOP
+
+    public event Action OnClickExit_Avatar;
+
+    private void ClickExit_Avatar()
+    {
+        OnClickExit_Avatar?.Invoke();
     }
 
     #endregion

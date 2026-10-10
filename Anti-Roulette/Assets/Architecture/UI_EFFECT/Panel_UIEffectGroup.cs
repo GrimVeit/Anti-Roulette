@@ -11,6 +11,7 @@ public class Panel_UIEffectGroup : MonoBehaviour
     [SerializeField] private float showDelayBetweenEffects = 0.05f;
 
     [Header("Hide")]
+    [SerializeField] private float hideStartDelay = 0f;
     [SerializeField] private float hideDelayBetweenEffects = 0.05f;
     [SerializeField] private bool reverseHide = false;
 

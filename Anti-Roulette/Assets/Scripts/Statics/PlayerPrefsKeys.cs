@@ -23,4 +23,5 @@ public static class PlayerPrefsKeys
 
     //PROFILE
     public const string NICKNAME = "profile.nickname";
+    public const string AVATAR = "profile.avatar";
 }
