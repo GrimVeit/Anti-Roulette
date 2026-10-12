@@ -14,7 +14,11 @@ public class GameEntryPoint : SceneEntryPoint
 
     private MoneyVisualPresenter _moneyVisualPresenter;
     private BackgroundVisualPresenter _backgroundVisualPresenter;
+    private WheelVisualPresenter _wheelVisualPresenter;
     private ProfileAvatarVisualPresenter _profileAvatarVisualPresenter;
+
+    private ChipPseudoSpawnerPresenter _chipPseudoSpawnerPresenter;
+    private ChipCounterPresenter _chipCounterPresenter;
 
     private StateMachine_Game _stateMachine;
 
@@ -51,12 +55,13 @@ public class GameEntryPoint : SceneEntryPoint
         await OnSceneShuttingDown();
         await base.ShutDown();
 
-        _sceneRoot?.Dispose();
+        _sceneRoot.Dispose();
         _moneyVisualPresenter?.Dispose();
 
-        _backgroundVisualPresenter?.Dispose();
-
         _profileAvatarVisualPresenter?.Dispose();
+
+        _chipPseudoSpawnerPresenter?.Dispose();
+        _chipCounterPresenter?.Dispose();
 
         _stateMachine?.Dispose();
     }
@@ -70,8 +75,12 @@ public class GameEntryPoint : SceneEntryPoint
         _moneyVisualPresenter = new MoneyVisualPresenter(new MoneyVisualModel(_storeMoneyPresenter, _storeMoneyPresenter), _viewContainer.GetView<MoneyVisualView>());
 
         _backgroundVisualPresenter = new BackgroundVisualPresenter(_storeBackgroundPresenter, _viewContainer.GetView<BackgroundVisualView>());
+        _wheelVisualPresenter = new WheelVisualPresenter(_storeWheelPresenter, _viewContainer.GetView<WheelVisualView>());
 
         _profileAvatarVisualPresenter = new ProfileAvatarVisualPresenter(new ProfileAvatarVisualModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarVisualView>());
+
+        _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 5), _viewContainer.GetView<ChipPseudoSpawnerView>());
+        _chipCounterPresenter = new ChipCounterPresenter(new ChipCounterModel(_chipPseudoSpawnerPresenter, 5), _viewContainer.GetView<ChipCounterView>());
 
         _stateMachine = new StateMachine_Game(container);
 
@@ -79,10 +88,32 @@ public class GameEntryPoint : SceneEntryPoint
         _moneyVisualPresenter.Initialize();
 
         _backgroundVisualPresenter.Initialize();
+        _wheelVisualPresenter.Initialize();
 
         _profileAvatarVisualPresenter.Initialize();
+
+        _chipPseudoSpawnerPresenter.Initialize();
+        _chipCounterPresenter.Initialize();
         
         return UniTask.CompletedTask;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _chipPseudoSpawnerPresenter.MoveToStart();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _chipPseudoSpawnerPresenter.Delete();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightAlt))
+        {
+            _chipPseudoSpawnerPresenter.Reload();
+        }
     }
 
     protected override UniTask OnSceneInitialized(DIContainer container)

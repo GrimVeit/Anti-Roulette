@@ -17,9 +17,4 @@ public class BackgroundVisualPresenter
     {
         _view.SetBackground(_backgroundInfoProvider.GetCurrentBackground());
     }
-
-    public void Dispose()
-    {
-
-    }
 }
