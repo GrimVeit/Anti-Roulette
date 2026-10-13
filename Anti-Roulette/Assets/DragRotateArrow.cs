@@ -71,9 +71,8 @@ public class DragRotateArrow : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
     private float GetPointerAngle(PointerEventData eventData)
     {
-        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
+            rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
 
         return Mathf.Atan2(localPoint.y, localPoint.x) * Mathf.Rad2Deg;
     }
