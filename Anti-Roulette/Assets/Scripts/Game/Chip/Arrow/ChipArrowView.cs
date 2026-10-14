@@ -14,6 +14,8 @@ public class ChipArrowView : View
     }
     public float CurrentAngle => currentAngle + angleOffset;
 
+    [SerializeField] private ChipArrow arrowTrigger;
+
     [Header("Ссылки")]
     [Tooltip("RectTransform стрелки (если она дочерний объект круга)")]
     public RectTransform targetTransform;
@@ -40,14 +42,22 @@ public class ChipArrowView : View
 
     public void Initialize()
     {
-        rectTransform = GetComponent<RectTransform>();
-
-        if (targetTransform == null)
-            targetTransform = rectTransform;
+        rectTransform = arrowTrigger.GetComponent<RectTransform>();
 
         // Запоминаем текущий угол как стартовый
         currentAngle = targetTransform.localEulerAngles.z - angleOffset;
         targetAngle = currentAngle;
+
+        arrowTrigger.OnUp += OnPointerUp;
+        arrowTrigger.OnDown += OnPointerDown;
+        arrowTrigger.OnMove += OnDrag;
+    }
+
+    public void Dispose()
+    {
+        arrowTrigger.OnUp -= OnPointerUp;
+        arrowTrigger.OnDown -= OnPointerDown;
+        arrowTrigger.OnMove -= OnDrag;
     }
 
     void Update()

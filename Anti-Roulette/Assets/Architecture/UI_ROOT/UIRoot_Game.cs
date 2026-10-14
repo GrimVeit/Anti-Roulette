@@ -5,6 +5,7 @@ public class UIRoot_Game : UIRoot
 {
     [Header("Main")]
     [SerializeField] private MainHeaderPanel_Game mainHeaderPanel;
+    [SerializeField] private MainPanel_Game mainPanel;
     [SerializeField] private RoulettePanel_Game roulettePanel;
     [SerializeField] private NumberPresentationPanel_Game numberPresentationPanel;
     [SerializeField] private HitPanel_Game hitPanel;
@@ -15,6 +16,7 @@ public class UIRoot_Game : UIRoot
         ActivateEvents();
 
         mainHeaderPanel.Initialize();
+        mainPanel.Initialize();
         roulettePanel.Initialize();
         numberPresentationPanel.Initialize();
         hitPanel.Initialize();
@@ -26,6 +28,7 @@ public class UIRoot_Game : UIRoot
         DeactivateEvents();
 
         mainHeaderPanel.Dispose();
+        mainPanel.Dispose();
         roulettePanel.Dispose();
         numberPresentationPanel.Dispose();
         hitPanel.Dispose();
@@ -52,6 +55,19 @@ public class UIRoot_Game : UIRoot
     public void HideMainHeaderPanel()
     {
         HidePanel(mainHeaderPanel);
+    }
+
+
+
+
+    public void ShowMainPanel()
+    {
+        ShowPanel(mainPanel);
+    }
+
+    public void HideMainPanel()
+    {
+        HidePanel(mainPanel);
     }
 
 

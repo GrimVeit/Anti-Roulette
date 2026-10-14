@@ -17,8 +17,16 @@ public class GameEntryPoint : SceneEntryPoint
     private WheelVisualPresenter _wheelVisualPresenter;
     private ProfileAvatarVisualPresenter _profileAvatarVisualPresenter;
 
+    private StoreNumberSectorPresenter _storeNumberSectorPresenter;
+    private NumberSectorVisualPresenter _numberSectorVisualPresenter;
+    private NumberSectorHighlightPresenter _numberSectorHighlightPresenter;
+
     private ChipPseudoSpawnerPresenter _chipPseudoSpawnerPresenter;
     private ChipCounterPresenter _chipCounterPresenter;
+    private ChipArrowPresenter _chipArrowPresenter;
+    private ChipSliderPresenter _chipSliderPresenter;
+
+    private ChipSpawnerPresenter _chipSpawnerPresenter;
 
     private StateMachine_Game _stateMachine;
 
@@ -60,8 +68,15 @@ public class GameEntryPoint : SceneEntryPoint
 
         _profileAvatarVisualPresenter?.Dispose();
 
+        _numberSectorVisualPresenter?.Dispose();
+        _numberSectorHighlightPresenter?.Dispose();
+
         _chipPseudoSpawnerPresenter?.Dispose();
         _chipCounterPresenter?.Dispose();
+        _chipArrowPresenter?.Dispose();
+        _chipSliderPresenter?.Dispose();
+
+        _chipSpawnerPresenter?.Dispose();
 
         _stateMachine?.Dispose();
     }
@@ -79,8 +94,32 @@ public class GameEntryPoint : SceneEntryPoint
 
         _profileAvatarVisualPresenter = new ProfileAvatarVisualPresenter(new ProfileAvatarVisualModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarVisualView>());
 
+
+        _storeNumberSectorPresenter = new StoreNumberSectorPresenter(new StoreNumberSectorModel());
+        container.RegisterInstance<IStoreNumberSectorListener>(_storeNumberSectorPresenter);
+        container.RegisterInstance<IStoreNumberSectorProvider>(_storeNumberSectorPresenter);
+
+        _numberSectorVisualPresenter = new NumberSectorVisualPresenter(new NumberSectorVisualModel(_storeNumberSectorPresenter), _viewContainer.GetView<NumberSectorVisualView>());
+
+        _numberSectorHighlightPresenter = new NumberSectorHighlightPresenter(new NumberSectorHighlightModel(_storeNumberSectorPresenter), _viewContainer.GetView<NumberSectorHighlightView>());
+        container.RegisterInstance<INumberSectorHighlightProvider>(_numberSectorHighlightPresenter);
+
         _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 5), _viewContainer.GetView<ChipPseudoSpawnerView>());
+        container.RegisterInstance<IChipPseudoProvider>(_chipPseudoSpawnerPresenter);
+        container.RegisterInstance<IChipPseudoListener>(_chipPseudoSpawnerPresenter);
+
         _chipCounterPresenter = new ChipCounterPresenter(new ChipCounterModel(_chipPseudoSpawnerPresenter, 5), _viewContainer.GetView<ChipCounterView>());
+
+        _chipArrowPresenter = new ChipArrowPresenter(new ChipArrowModel(), _viewContainer.GetView<ChipArrowView>());
+        container.RegisterInstance<IChipArrowInfo>(_chipArrowPresenter);
+        container.RegisterInstance<IChipArrowActivator>(_chipArrowPresenter);
+
+        _chipSliderPresenter = new ChipSliderPresenter(new ChipSliderModel(), _viewContainer.GetView<ChipSliderView>());
+        container.RegisterInstance<IChipSliderListen>(_chipSliderPresenter);
+        container.RegisterInstance<IChipSliderActivator>(_chipSliderPresenter);
+
+        _chipSpawnerPresenter = new ChipSpawnerPresenter(new ChipSpawnerModel(_storeChipPresenter), _viewContainer.GetView<ChipSpawnerView>());
+        container.RegisterInstance<IChipSpawnerProvider>(_chipSpawnerPresenter);
 
         _stateMachine = new StateMachine_Game(container);
 
@@ -92,28 +131,17 @@ public class GameEntryPoint : SceneEntryPoint
 
         _profileAvatarVisualPresenter.Initialize();
 
+        _numberSectorVisualPresenter.Initialize();
+        _numberSectorHighlightPresenter.Initialize();
+
         _chipPseudoSpawnerPresenter.Initialize();
         _chipCounterPresenter.Initialize();
+        _chipArrowPresenter.Initialize();
+        _chipSliderPresenter.Initialize();
+
+        _chipSpawnerPresenter.Initialize();
         
         return UniTask.CompletedTask;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _chipPseudoSpawnerPresenter.MoveToStart();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            _chipPseudoSpawnerPresenter.Delete();
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightAlt))
-        {
-            _chipPseudoSpawnerPresenter.Reload();
-        }
     }
 
     protected override UniTask OnSceneInitialized(DIContainer container)

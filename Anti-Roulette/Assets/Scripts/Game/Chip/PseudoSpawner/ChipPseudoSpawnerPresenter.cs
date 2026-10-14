@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class ChipPseudoSpawnerPresenter : IChipPseudoListener, IChipPseudoProvider
 {
@@ -14,34 +16,34 @@ public class ChipPseudoSpawnerPresenter : IChipPseudoListener, IChipPseudoProvid
     public void Initialize()
     {
         ActivateEvents();
-
         _model.Initialize();
     }
 
-    public void Dispose()
-    {
-        DeactivateEvents();
-    }
+    public void Dispose() => DeactivateEvents();
 
     private void ActivateEvents()
     {
         _model.OnSpawnChip += _view.SpawnChip;
         _model.OnDelete += _view.Delete;
-        _model.OnMoveStart += _view.MoveToStart;
         _model.OnReload += _view.Clear;
+        // OnMoveStart Ќ≈ пробрасываем во View Ч View дЄргаетс€ из MoveToStartAsync
     }
 
     private void DeactivateEvents()
     {
         _model.OnSpawnChip -= _view.SpawnChip;
         _model.OnDelete -= _view.Delete;
-        _model.OnMoveStart -= _view.MoveToStart;
         _model.OnReload -= _view.Clear;
     }
 
     #region Input
 
-    public void MoveToStart() => _model.MoveToStart();
+    public async UniTask MoveToStartAsync(CancellationToken token)
+    {
+        if (!_model.MoveToStart()) return;
+        await _view.MoveToStartAsync(token);
+    }
+
     public void Delete() => _model.Delete();
     public void Reload() => _model.Reload();
 
@@ -67,26 +69,20 @@ public class ChipPseudoSpawnerPresenter : IChipPseudoListener, IChipPseudoProvid
         remove => _view.OnEndMove -= value;
     }
 
-    public event Action OnReload
-    {
-        add => _model.OnReload += value;
-        remove => _model.OnReload -= value;
-    }
-
     #endregion
 }
 
 public interface IChipPseudoListener
 {
-    public event Action<int> OnCurrentCount;
+    event Action<int> OnCurrentCount;
 
-    public event Action OnStartMove;
-    public event Action OnEndMove;
+    event Action OnStartMove;
+    event Action OnEndMove;
 }
 
 public interface IChipPseudoProvider
 {
-    public void Reload();
-    public void MoveToStart();
-    public void Delete();
+    UniTask MoveToStartAsync(CancellationToken token);
+    void Reload();
+    void Delete();
 }

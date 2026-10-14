@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
 public class ChipPseudoSpawnerView : View
 {
+    [SerializeField] private float timeMove;
     [SerializeField] private Transform transformSpawn;
     [SerializeField] private ChipPseudo chipPseudo_Prefab;
     [SerializeField] private Transform transformPointSpawn;
@@ -20,14 +23,22 @@ public class ChipPseudoSpawnerView : View
         _chips.Add(chipPseudo);
     }
 
-    public void MoveToStart()
+    public async UniTask MoveToStartAsync(CancellationToken token)
     {
         if (_chips.Count == 0) return;
 
         OnStartMove?.Invoke();
 
         var topChip = _chips[^1];
-        topChip.MoveTo(transformPointStart, 0.3f, () => OnEndMove?.Invoke());
+
+        var tcs = new UniTaskCompletionSource();
+        topChip.MoveTo(transformPointStart, timeMove, () =>
+        {
+            OnEndMove?.Invoke();
+            tcs.TrySetResult();
+        });
+
+        await tcs.Task.AttachExternalCancellation(token);
     }
 
     public void Delete()

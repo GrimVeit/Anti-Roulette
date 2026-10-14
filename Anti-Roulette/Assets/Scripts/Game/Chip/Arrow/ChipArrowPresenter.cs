@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChipArrowPresenter
+public class ChipArrowPresenter : IChipArrowActivator, IChipArrowInfo
 {
     private readonly ChipArrowModel _model;
     private readonly ChipArrowView _view;
@@ -44,9 +44,23 @@ public class ChipArrowPresenter
     public void Deactivate() => _model.Deactivate();
 
     #endregion
+
+    #region Output
+
+    public Vector2 Direction => _view.Direction;
+    public float CurrentAngle => _view.CurrentAngle;
+
+    #endregion
 }
 
-public interface IChipArrowProvider
+public interface IChipArrowActivator
 {
+    public void Activate();
+    public void Deactivate();
+}
 
+public interface IChipArrowInfo
+{
+    public Vector2 Direction { get; }
+    public float CurrentAngle { get; }
 }
