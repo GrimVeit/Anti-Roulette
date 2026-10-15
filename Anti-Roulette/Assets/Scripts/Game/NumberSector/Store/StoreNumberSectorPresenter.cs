@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreNumberSectorPresenter : IStoreNumberSectorListener, IStoreNumberSectorProvider
+public class StoreNumberSectorPresenter : IStoreNumberSectorListener, IStoreNumberSectorProvider, IStoreNumberSectorInfo
 {
     private readonly StoreNumberSectorModel _model;
 
@@ -11,6 +11,8 @@ public class StoreNumberSectorPresenter : IStoreNumberSectorListener, IStoreNumb
     {
         _model = model;
     }
+
+    public NumberColor CurrentColorNumber => _model.CurrentColorNumber;
 
     public void ChooseRandom() => _model.ChooseRandom();
 
@@ -23,6 +25,11 @@ public class StoreNumberSectorPresenter : IStoreNumberSectorListener, IStoreNumb
     }
 
     #endregion
+}
+
+public interface IStoreNumberSectorInfo
+{
+    public NumberColor CurrentColorNumber { get; }
 }
 
 public interface IStoreNumberSectorListener

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
 
-public class NumberPresentationPanel_Game : MoveFadePanel
+public class NumberPresentationPanel_Game : Panel
 {
     [SerializeField] private SkeletonGraphic _skeletonGraphic;
 

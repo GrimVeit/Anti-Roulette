@@ -19,7 +19,12 @@ public class NumberPresentationState_Game : AsyncState
     {
         _sceneRoot.ShowNumberPresentationPanel();
 
-        await UniTask.WaitForSeconds(3.8f, cancellationToken: token);
+        await UniTask.WaitForSeconds(1.5f);
+
+        _sceneRoot.HideRoulettePanel();
+        _sceneRoot.ShowMainHeaderPanel();
+
+        await UniTask.WaitForSeconds(2.3f, cancellationToken: token);
 
         _sceneRoot.HideRoulettePanel();
         _sceneRoot.HideNumberPresentationPanel();

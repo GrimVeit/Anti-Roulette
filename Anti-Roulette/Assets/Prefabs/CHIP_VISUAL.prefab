@@ -117,6 +117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageChip: {fileID: 2638962906440392235}
+  sectorMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   stopSpeed: 0.1
   stopDelay: 0.15
   minLaunchForce: 0.5
+  linearDrag: 2
+  angularDrag: 3

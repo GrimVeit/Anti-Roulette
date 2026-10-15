@@ -21,10 +21,6 @@ public class MoveChipToStartState_Game : AsyncState
 
     protected override async UniTask EnterAsync(CancellationToken token)
     {
-        _sceneRoot.ShowMainHeaderPanel();
-
-        await UniTask.WaitForSeconds(0.3f);
-
         _sceneRoot.ShowMainPanel();
 
         await UniTask.WaitForSeconds(0.5f);

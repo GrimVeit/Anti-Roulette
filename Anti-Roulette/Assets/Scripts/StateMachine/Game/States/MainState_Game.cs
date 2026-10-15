@@ -50,10 +50,10 @@ public class MainState_Game : IState
     private void Spawn(float power)
     {
         _chipPseudoProvider.Delete();
-        _chipArrowActivator.Deactivate();
-        _chipSliderActivator.Deactivate();
 
         _chipSpawnerProvider.Spawn(_chipArrowInfo.Direction, power);
+
+        _stateProvider.SetState(_stateProvider.GetState<ChipMoveState_Game>());
     }
 
     #region OUTPUT

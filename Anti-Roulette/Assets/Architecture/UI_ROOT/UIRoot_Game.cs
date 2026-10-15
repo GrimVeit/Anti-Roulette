@@ -38,11 +38,13 @@ public class UIRoot_Game : UIRoot
     private void ActivateEvents()
     {
         mainHeaderPanel.OnClickExit += ClickExit_MainHeader;
+        mainHeaderPanel.OnClickRoulette += ClickRoulette_MainHeader;
     }
 
     private void DeactivateEvents()
     {
         mainHeaderPanel.OnClickExit -= ClickExit_MainHeader;
+        mainHeaderPanel.OnClickRoulette -= ClickRoulette_MainHeader;
     }
 
     #region Input
@@ -125,10 +127,16 @@ public class UIRoot_Game : UIRoot
     #region Output
 
     public event Action OnClickExit_MainHeader;
+    public event Action OnClickRoulette_MainHeader;
 
     private void ClickExit_MainHeader()
     {
         OnClickExit_MainHeader?.Invoke();
+    }
+
+    private void ClickRoulette_MainHeader()
+    {
+        OnClickRoulette_MainHeader?.Invoke();
     }
 
     #endregion

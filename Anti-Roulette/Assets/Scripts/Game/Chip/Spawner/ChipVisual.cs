@@ -1,24 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class ChipVisual : MonoBehaviour
 {
     [SerializeField] private Image imageChip;
+    [SerializeField] private LayerMask sectorMask;
+
     [Header("Detection")]
     [SerializeField] private float stopSpeed = 0.1f;
     [SerializeField] private float stopDelay = 0.15f;
 
-    [Header("Optional")]
+    [Header("Launch")]
     [SerializeField] private float minLaunchForce = 0.5f;
+
+    [Header("Braking")]
     [SerializeField] private float linearDrag = 2f;
     [SerializeField] private float angularDrag = 3f;
 
     public event System.Action<ChipVisual> Finished;
 
-    private LayerMask sectorMask;
     private Rigidbody2D rb;
     private bool inFlight;
     private bool resolved;
@@ -26,13 +27,12 @@ public class ChipVisual : MonoBehaviour
     public bool InFlight => inFlight;
     public bool IsResolved => resolved;
 
-    public void Initialize(LayerMask layerMask, Sprite sprite)
+    public void Initialize(Sprite sprite)
     {
         imageChip.sprite = sprite;
-        sectorMask = layerMask;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-        rb.drag = linearDrag;          // Unity 2022 и старше
+        rb.drag = linearDrag;
         rb.angularDrag = angularDrag;
     }
 
@@ -47,8 +47,7 @@ public class ChipVisual : MonoBehaviour
         if (force < minLaunchForce)
             force = minLaunchForce;
 
-        // —брос, если фишку перезапускают
-        //CancelInvoke(nameof(Resolve));
+        CancelInvoke(nameof(Resolve));
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
 
@@ -67,28 +66,36 @@ public class ChipVisual : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
             resolved = true;
-            //Invoke(nameof(Resolve), stopDelay);
+            Invoke(nameof(Resolve), stopDelay);
         }
     }
 
-    //void Resolve()
-    //{
-    //    inFlight = false;
+    void Resolve()
+    {
+        inFlight = false;
 
-    //    Collider2D hit = Physics2D.OverlapPoint(rb.position, sectorMask);
-    //    if (hit != null && hit.TryGetComponent<ISector>(out var sector))
-    //    {
-    //        sector.OnChipLanded(this);
-    //    }
-    //    else if (hit == null)
-    //    {
-    //        Debug.Log("Chip: остановилась вне секторов");
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning($"Chip: коллайдер {hit.name} не реализует ISector");
-    //    }
+        var sector = GetSectorUnderChip();
+        if (sector != null)
+            sector.SetChip(this);
+        else
+            OnFail?.Invoke();
 
-    //    Finished?.Invoke(this);
-    //}
+        Destroy(rb);
+
+        Finished?.Invoke(this);
+    }
+
+    private ISector GetSectorUnderChip()
+    {
+        Vector2 point = transform.position; // середина фишки (при корректном pivot)
+        Collider2D hit = Physics2D.OverlapPoint(point, sectorMask);
+        if (hit == null) return null;
+        return hit.GetComponentInParent<ISector>();
+    }
+
+    #region Output
+
+    public event Action OnFail;
+
+    #endregion
 }

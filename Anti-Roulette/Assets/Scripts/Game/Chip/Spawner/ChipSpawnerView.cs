@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,9 @@ public class ChipSpawnerView : View
         ChipVisual chipVisual = Instantiate(chipPrefab, transformSpawn);
         chipVisual.transform.localPosition = Vector3.zero;
 
-        chipVisual.Initialize(sectorMask, chip.Sprite);
+        chipVisual.OnFail += Fail;
+
+        chipVisual.Initialize(chip.Sprite);
 
         spawnedChips.Add(chipVisual);
         chipVisual.Launch(direction, force);
@@ -25,8 +28,22 @@ public class ChipSpawnerView : View
     public void ClearAll()
     {
         foreach (var chip in spawnedChips)
+        {
+            chip.OnFail -= Fail;
             if (chip != null) Destroy(chip.gameObject);
+        }
 
         spawnedChips.Clear();
     }
+
+    #region Output
+
+    public event Action OnFailed;
+
+    private void Fail()
+    {
+        OnFailed?.Invoke();
+    }
+
+    #endregion
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
 
-public class HitPanel_Game : MoveFadePanel
+public class HitPanel_Game : Panel
 {
     [SerializeField] private SkeletonGraphic _skeletonGraphic;
 
