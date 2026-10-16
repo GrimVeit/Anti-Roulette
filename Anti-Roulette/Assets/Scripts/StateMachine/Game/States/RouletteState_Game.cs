@@ -16,7 +16,7 @@ public class RouletteState_Game : AsyncState
     {
         _storeNumberSectorProvider.ChooseRandom();
 
-        await UniTask.WaitForSeconds(1f, cancellationToken: token);
+        await UniTask.WaitForSeconds(0.05f, cancellationToken: token);
 
         ChangeStateToNumberPresentation();
 

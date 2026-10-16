@@ -52,7 +52,7 @@ public class ScaleEffect_Fade : UIEffect
 
         tween = scaleElement
             .DOScale(Vector3.zero, duration)
-            .SetEase(Ease.InBack)
+            //.SetEase(Ease.InBack)
             .OnComplete(() => onComplete?.Invoke());
     }
 }

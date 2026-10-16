@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,7 @@ public class ChipSliderView : View
     [Header("UI")]
     public Slider powerSlider;          // вертикальный слайдер
     public TextMeshProUGUI powerText;   // текст силы
+    [SerializeField] private UIEffect effectSlider;
 
     [Header("Настройки")]
     public float returnSpeed = 3f;      // скорость возврата
@@ -41,16 +43,24 @@ public class ChipSliderView : View
 
         powerSlider.onValueChanged.AddListener(UpdateText);
         UpdateText(0f);
+
+        effectSlider.Initialize();
     }
 
     public void Activate()
     {
+        if(!effectSlider.IsActive)
+            effectSlider.PlayShow();
+
         isActive = true;
         powerSlider.interactable = true;
     }
 
     public void Deactivate()
     {
+        if (effectSlider.IsActive)
+            effectSlider.PlayHide();
+
         isActive = false;
         powerSlider.interactable = false;
 
@@ -76,7 +86,7 @@ public class ChipSliderView : View
         float shotPower = powerSlider.value * maxPower;
         Debug.Log($"Выстрел силой {shotPower}");
 
-        if(shotPower > 0.01f)
+        if(shotPower > 0.5f)
             OnShotPower?.Invoke(shotPower);
 
         // тут запускай сам выстрел: shotPower

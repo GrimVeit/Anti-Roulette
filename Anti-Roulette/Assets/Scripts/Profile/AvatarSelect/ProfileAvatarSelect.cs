@@ -16,12 +16,16 @@ public class ProfileAvatarSelect : MonoBehaviour
     [SerializeField] private Image imageAvatar;
     [SerializeField] private Button buttonVisualBuy;
 
+    private RectTransform rectTransform;
     private int _avatarId = -1;
     private Transform _defaultSlot;
     private Tween _tweenMove;
+    private Tween _tweenSize;
 
     public void Initialize(int avatarId, Transform defaultSlot, Sprite sprite)
     {
+        rectTransform = GetComponent<RectTransform>();
+
         if (_avatarId != -1)
         {
             Debug.LogWarning($"[{nameof(ProfileAvatarSelect)}] Already initialized with id {_avatarId}");
@@ -47,6 +51,7 @@ public class ProfileAvatarSelect : MonoBehaviour
         transform.SetParent(slot);
 
         MoveTo(Vector3.zero, duration);
+        SizeTo(new Vector2(175, 175), duration);
     }
 
     public void Deselect(float duration)
@@ -56,12 +61,19 @@ public class ProfileAvatarSelect : MonoBehaviour
         transform.SetParent(_defaultSlot);
 
         MoveTo(Vector3.zero, duration);
+        SizeTo(new Vector2(230, 230), duration);
     }
 
     private void MoveTo(Vector3 vector, float duration)
     {
         _tweenMove?.Kill();
         _tweenMove = transform.DOLocalMove(vector, duration).SetEase(Ease.OutQuad);
+    }
+
+    private void SizeTo(Vector2 size, float duration)
+    {
+        _tweenSize?.Kill();
+        _tweenSize = rectTransform.DOSizeDelta(size, duration);
     }
 
     private void Choose()
