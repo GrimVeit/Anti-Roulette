@@ -34,6 +34,6 @@ public class HoldClickRouletteState_Game : IState
 
     private void ChangeStateToRoulette()
     {
-        _stateProvider.SetState(_stateProvider.GetState<RouletteState_Game>());
+        _stateProvider.SetState(_stateProvider.GetState<RouletteSpinState_Game>());
     }
 }

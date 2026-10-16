@@ -23,6 +23,7 @@ public class GameEntryPoint : SceneEntryPoint
     private NumberSectorTriggerPresenter _numberSectorTriggerPresenter;
 
     private RouletteHighlightPresenter _rouletteHighlightPresenter;
+    private RouletteSpinPresenter _rouletteSpinPresenter;
 
     private ChipPseudoSpawnerPresenter _chipPseudoSpawnerPresenter;
     private ChipCounterPresenter _chipCounterPresenter;
@@ -75,6 +76,8 @@ public class GameEntryPoint : SceneEntryPoint
         _numberSectorHighlightPresenter?.Dispose();
         _numberSectorTriggerPresenter?.Dispose();
 
+        _rouletteSpinPresenter?.Dispose();
+
         _chipPseudoSpawnerPresenter?.Dispose();
         _chipCounterPresenter?.Dispose();
         _chipArrowPresenter?.Dispose();
@@ -115,6 +118,9 @@ public class GameEntryPoint : SceneEntryPoint
         _rouletteHighlightPresenter = new RouletteHighlightPresenter(_viewContainer.GetView<RouletteHighlightView>());
         container.RegisterInstance<IRouletteHighlightActivator>(_rouletteHighlightPresenter);
 
+        _rouletteSpinPresenter = new RouletteSpinPresenter(new RouletteSpinModel(), _viewContainer.GetView<RouletteSpinView>());
+        container.RegisterInstance<IRouletteSpinProvider>(_rouletteSpinPresenter);
+
 
         _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 5), _viewContainer.GetView<ChipPseudoSpawnerView>());
         container.RegisterInstance<IChipPseudoProvider>(_chipPseudoSpawnerPresenter);
@@ -147,6 +153,8 @@ public class GameEntryPoint : SceneEntryPoint
         _numberSectorVisualPresenter.Initialize();
         _numberSectorHighlightPresenter.Initialize();
         _numberSectorTriggerPresenter.Initialze();
+
+        _rouletteSpinPresenter.Initialize();
 
         _chipPseudoSpawnerPresenter.Initialize();
         _chipCounterPresenter.Initialize();

@@ -17,7 +17,8 @@ public class StateMachine_Game : IStateProvider
 
         states[typeof(HoldOnStartState_Game)] = new HoldOnStartState_Game(this, root);
 
-        states[typeof(RouletteState_Game)] = new RouletteState_Game(this, root, container.Resolve<IStoreNumberSectorProvider>());
+        states[typeof(RouletteSpinState_Game)] = new RouletteSpinState_Game(this, root, container.Resolve<IRouletteSpinProvider>());
+        states[typeof(RouletteState_Game)] = new RouletteState_Game(this, container.Resolve<IStoreNumberSectorProvider>());
         states[typeof(NumberPresentationState_Game)] = new NumberPresentationState_Game(this, root);
         states[typeof(MoveChipToStartState_Game)] = new MoveChipToStartState_Game(this, root, container.Resolve<IChipPseudoProvider>(), container.Resolve<INumberSectorHighlightProvider>());
         states[typeof(MainState_Game)] = new MainState_Game(this, sceneService, root, container.Resolve<IChipSpawnerProvider>(), container.Resolve<IChipArrowInfo>(), container.Resolve<IChipSliderListen>(), container.Resolve<IChipSliderActivator>(), container.Resolve<IChipArrowActivator>(), container.Resolve<IChipPseudoProvider>());
@@ -29,7 +30,7 @@ public class StateMachine_Game : IStateProvider
 
     public void Initialize()
     {
-        SetState(GetState<RouletteState_Game>());
+        SetState(GetState<RouletteSpinState_Game>());
     }
 
     public void Dispose()
