@@ -13,7 +13,7 @@ public abstract class Panel : MonoBehaviour
     public virtual void Initialize() { }
     public virtual void Dispose() { }
 
-    public void Show()
+    public virtual void Show()
     {
         if (IsOpen)
             return;
@@ -27,7 +27,7 @@ public abstract class Panel : MonoBehaviour
         OnStartShow();
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         if (!IsOpen)
             return;

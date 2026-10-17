@@ -32,7 +32,8 @@ public class RouletteSpinView : View
         float randomAngle = UnityEngine.Random.Range(0f, 360f);
 
         float startAngle = _currentAngle;
-        float targetAngle = startAngle + fullSpins * 360f + randomAngle;
+        // Минус — вращение по часовой стрелке
+        float targetAngle = startAngle - (fullSpins * 360f + randomAngle);
 
         _spinTween?.Kill();
 

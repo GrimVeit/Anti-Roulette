@@ -59,6 +59,6 @@ public class MainState_Menu : IState
 
     private void ChangeSceneToGame()
     {
-        _sceneService.ChangeScene(new SceneTransition(Scenes.Game, LoadingType.Black));
+        _sceneService.ChangeScene(new SceneTransition(Scenes.Game, LoadingType.Default));
     }
 }

@@ -53,6 +53,10 @@ public class UIRoot_Menu : UIRoot
     {
         base.Dispose();
 
+        HideMainSpinPanel();
+        HideMainLeftUpPanel();
+        HideMainRightUpPanel();
+
         DeactivateEvents();
 
         backgroundFadePanel.Dispose();

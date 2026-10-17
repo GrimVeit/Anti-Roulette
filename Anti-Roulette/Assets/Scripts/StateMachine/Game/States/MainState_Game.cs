@@ -60,7 +60,7 @@ public class MainState_Game : IState
 
     private void ChangeSceneToMenu()
     {
-        _sceneService.ChangeScene(new SceneTransition(Scenes.Menu, LoadingType.Black));
+        _sceneService.ChangeScene(new SceneTransition(Scenes.Menu, LoadingType.Default));
     }
 
     #endregion

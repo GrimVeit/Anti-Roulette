@@ -6,12 +6,13 @@ public class UIRootView : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private FadePanel fadeBlackPanel;
-    [SerializeField] private FadePanel fadeStaticPanel;
+    [SerializeField] private LoadingPanel fadeStaticPanel;
     [SerializeField] private Transform uiSceneContainer;
 
     public UniTask Initialize()
     {
         fadeBlackPanel.Initialize();
+        fadeStaticPanel.Initialize();
 
         return UniTask.CompletedTask;
     }
@@ -29,18 +30,20 @@ public class UIRootView : MonoBehaviour
             case LoadingType.Start:
 
                 fadeStaticPanel.Show();
-                await UniTask.Delay(100);
+                await UniTask.WaitForSeconds(1);
 
                 return;
             case LoadingType.Default:
                 fadeStaticPanel.Show();
-                await UniTask.Delay(100);
+                await UniTask.WaitForSeconds(1);
                 return;
         }
     }
 
     public async UniTask HideLoadingScreen(LoadingType loadingType)
     {
+        await UniTask.Delay(200);
+
         switch (loadingType)
         {
             case LoadingType.Black:
@@ -51,10 +54,12 @@ public class UIRootView : MonoBehaviour
             case LoadingType.Start:
 
                 fadeStaticPanel.Hide();
+                await UniTask.WaitForSeconds(1f);
 
                 return;
             case LoadingType.Default:
                 fadeStaticPanel.Hide();
+                await UniTask.WaitForSeconds(1f);
                 return;
         }
 

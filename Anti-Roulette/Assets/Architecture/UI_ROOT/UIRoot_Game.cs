@@ -27,6 +27,13 @@ public class UIRoot_Game : UIRoot
     {
         DeactivateEvents();
 
+        HideHitPanel();
+        HideMainHeaderPanel();
+        HideMainPanel();
+        HideMissPanel();
+        HideNumberPresentationPanel();
+        HideRoulettePanel();
+
         mainHeaderPanel.Dispose();
         mainPanel.Dispose();
         roulettePanel.Dispose();
