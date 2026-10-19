@@ -1,30 +1,30 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine;
 
 public class RegistrationState_Game : AsyncState
 {
     private readonly IStateProvider _stateProvider;
 
-    //private readonly IPlayerProfileInfoProvider _profileInfo;
-    //private readonly IAuthenticationProvider _authentication;
-    //private readonly IPlayerDatabaseProvider _database;
+    private readonly IPlayerProfileInfoProvider _profileInfo;
+    private readonly IAuthenticationProvider _authentication;
+    private readonly IPlayerDatabaseProvider _database;
     private readonly IMoneyProvider _moneyProvider;
-    //private readonly ILevelProvider _levelProvider;
 
     private readonly UIRoot_Menu _sceneRoot;
 
     public RegistrationState_Game(
         IStateProvider stateProvider,
-        //IPlayerProfileInfoProvider profileInfo,
-        //IAuthenticationProvider authentication,
-        //IPlayerDatabaseProvider database,
+        IPlayerProfileInfoProvider profileInfo,
+        IAuthenticationProvider authentication,
+        IPlayerDatabaseProvider database,
         UIRoot_Menu sceneRoot,
         IMoneyProvider moneyProvider)
     {
         _stateProvider = stateProvider;
-        //_profileInfo = profileInfo;
-        //_authentication = authentication;
-        //_database = database;
+        _profileInfo = profileInfo;
+        _authentication = authentication;
+        _database = database;
         _sceneRoot = sceneRoot;
         _moneyProvider = moneyProvider;
     }
@@ -33,24 +33,22 @@ public class RegistrationState_Game : AsyncState
     {
         //_sceneRoot.ShowRegistrationLoadingPanel();
 
-        //PlayerProfile profile = _profileInfo.Profile;
+        AuthenticationResult authResult = await _authentication.EnsureSignedInAsync();
 
-        //AuthenticationResult authResult = await _authentication.Register(profile.Nickname);
+        if (authResult != AuthenticationResult.Success)
+        {
+            ChangeStateToProfileInput();
+            return;
+        }
 
-        //if (authResult != AuthenticationResult.Success)
-        //{
-        //    ChangeStateToProfileInput();
-        //    return;
-        //}
+        _moneyProvider.SetZero();
 
-        //_levelProvider.SetZero();
-        //_moneyProvider.SetZero();
+        PlayerData playerData = new(_profileInfo.Profile.Nickname, 0);
 
-        //PlayerData playerData = new(profile.Nickname, 0);
+        DatabaseResult dbResult = await _database.CreateOrUpdatePlayer(playerData);
 
-        //await _database.CreateOrUpdatePlayer(playerData);
-
-        await UniTask.CompletedTask;
+        if (dbResult != DatabaseResult.Success)
+            Debug.LogWarning($"CreateOrUpdatePlayer failed: {dbResult}");
 
         ChangeStateToStartMain();
     }
@@ -64,7 +62,7 @@ public class RegistrationState_Game : AsyncState
 
     private void ChangeStateToProfileInput()
     {
-        _stateProvider.SetState(_stateProvider.GetState<Registration_NicknameProfileUnputState_Menu>());
+        _stateProvider.SetState(_stateProvider.GetState<Registration_NicknameProfileInputState_Menu>());
     }
 
     private void ChangeStateToStartMain()

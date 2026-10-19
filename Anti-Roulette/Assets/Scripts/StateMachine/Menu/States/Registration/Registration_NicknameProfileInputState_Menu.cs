@@ -2,41 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Registration_NicknameProfileUnputState_Menu : IState
+public class Registration_NicknameProfileInputState_Menu : IState
 {
     private readonly IStateProvider _stateProvider;
-    //private readonly IPlayerProfileEventsProvider _profileEvents;
+    private readonly IPlayerProfileEventsProvider _profileEvents;
 
     private readonly UIRoot_Menu _sceneRoot;
 
-    public Registration_NicknameProfileUnputState_Menu(
+    public Registration_NicknameProfileInputState_Menu(
         IStateProvider stateProvider,
-        //IPlayerProfileEventsProvider profileEvents,
+        IPlayerProfileEventsProvider profileEvents,
         UIRoot_Menu sceneRoot)
     {
         _stateProvider = stateProvider;
-        //_profileEvents = profileEvents;
+        _profileEvents = profileEvents;
         _sceneRoot = sceneRoot;
     }
 
     public void Enter()
     {
-        //_profileEvents.OnProfileChanged += OnProfileChanged;
+        _profileEvents.OnProfileChanged += OnProfileChanged;
 
         //_sceneRoot.ShowRegistrationPanel();
     }
 
     public void Exit()
     {
-        //_profileEvents.OnProfileChanged -= OnProfileChanged;
+        _profileEvents.OnProfileChanged -= OnProfileChanged;
 
         //_sceneRoot.HideRegistrationPanel();
     }
 
-    private void OnProfileChanged
-        (
-        //PlayerProfile profile
-        )
+    private void OnProfileChanged(IPlayerProfile profile)
     {
         ChangeStateToRegistration();
     }

@@ -1,47 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
-public class Registration_CheckAuthorizationState_Menu : IState
+public sealed class Registration_CheckAuthorizationState_Menu : IState
 {
     private readonly IStateProvider _stateProvider;
-    //private readonly IAuthenticationInfoProvider _authenticationInfo;
-    private readonly UIRoot_Menu _sceneRoot;
+    private readonly IAuthenticationInfoProvider _authenticationInfo;
 
     public Registration_CheckAuthorizationState_Menu(
         IStateProvider stateProvider,
-        //IAuthenticationInfoProvider authenticationInfo,
-        UIRoot_Menu sceneRoot)
+        IAuthenticationInfoProvider authenticationInfo)
     {
         _stateProvider = stateProvider;
-        //_authenticationInfo = authenticationInfo;
-        _sceneRoot = sceneRoot;
+        _authenticationInfo = authenticationInfo;
     }
 
     public void Enter()
     {
-        //if (_authenticationInfo.IsAuthorized)
-        //{
-        //    ChangeStateToStartMain();
-        //}
-        //else
-        //{
-        //    ChangeStateToStartRegistration();
-        //}
+        if (_authenticationInfo.IsAuthorized)
+            _stateProvider.SetState(_stateProvider.GetState<Registration_StartMainState_Menu>());
+        else
+            _stateProvider.SetState(_stateProvider.GetState<Registration_NicknameProfileInputState_Menu>());
     }
-    
 
     public void Exit()
     {
-    }
 
-    private void ChangeStateToStartRegistration()
-    {
-        _stateProvider.SetState(_stateProvider.GetState<Registration_NicknameProfileUnputState_Menu>());
-    }
-
-    private void ChangeStateToStartMain()
-    {
-        _stateProvider.SetState(_stateProvider.GetState<Registration_StartMainState_Menu>());
     }
 }

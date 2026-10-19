@@ -3,11 +3,16 @@ using System;
 
 public sealed class ProfileNicknameInputModel
 {
-    private static readonly Regex MainRegex =
-        new("^[a-zA-Z0-9./]*$");
+    private const int MinLength = 3;
+    private const int MaxLength = 17;
 
-    private static readonly Regex InvalidRegex =
-        new(@"(\.{2,}|/{2,})");
+    // Unicode-буквы + цифры + пробел + точка + подчёркивание + дефис.
+    // Пробел разрешён, но не в начале/конце (проверяется отдельно после Trim).
+    private static readonly Regex AllowedRegex =
+        new(@"^[\p{L}\p{N} ._-]+$", RegexOptions.Compiled);
+
+    private static readonly Regex ConsecutiveSpacesRegex =
+        new(@"\s{2,}", RegexOptions.Compiled);
 
     private readonly IPlayerProfileProvider _playerProfileProvider;
 
@@ -21,58 +26,40 @@ public sealed class ProfileNicknameInputModel
 
     public void SetNickname(string value)
     {
-        if (value == null)
+        if (string.IsNullOrWhiteSpace(value))
         {
             SetNotValid("Nickname cannot be empty");
             return;
         }
 
-        if (value.Length < 5)
-        {
-            SetNotValid(
-                "Nickname must be at least 5 characters long"
-            );
+        // Обрезаем пробелы по краям — игрок не должен страдать из-за случайного пробела
+        string trimmed = value.Trim();
 
+        if (trimmed.Length < MinLength)
+        {
+            SetNotValid($"Nickname must be at least {MinLength} characters long");
             return;
         }
 
-        if (value.Length > 17)
+        if (trimmed.Length > MaxLength)
         {
-            SetNotValid(
-                "Nickname must not exceed 17 characters"
-            );
-
+            SetNotValid($"Nickname must not exceed {MaxLength} characters");
             return;
         }
 
-        if (!MainRegex.IsMatch(value))
+        if (!AllowedRegex.IsMatch(trimmed))
         {
-            SetNotValid(
-                "Nickname can only contain english letters, numbers, periods and slashes"
-            );
-
+            SetNotValid("Nickname can only contain letters, numbers, spaces, periods, underscores and hyphens");
             return;
         }
 
-        if (InvalidRegex.IsMatch(value))
+        if (ConsecutiveSpacesRegex.IsMatch(trimmed))
         {
-            SetNotValid(
-                "Nickname cannot contain consecutive periods and slashes"
-            );
-
+            SetNotValid("Nickname cannot contain consecutive spaces");
             return;
         }
 
-        if (value.EndsWith("."))
-        {
-            SetNotValid(
-                "Nickname cannot end with a period"
-            );
-
-            return;
-        }
-
-        _possibleNickname = value;
+        _possibleNickname = trimmed;
 
         OnSetValidate?.Invoke();
     }
@@ -82,9 +69,7 @@ public sealed class ProfileNicknameInputModel
         if (string.IsNullOrEmpty(_possibleNickname))
             return;
 
-        _playerProfileProvider.SetNickname(
-            _possibleNickname
-        );
+        _playerProfileProvider.SetNickname(_possibleNickname);
     }
 
     private void SetNotValid(string error)
