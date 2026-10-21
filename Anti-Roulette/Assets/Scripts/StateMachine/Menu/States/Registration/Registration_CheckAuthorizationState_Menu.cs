@@ -8,18 +8,22 @@ public sealed class Registration_CheckAuthorizationState_Menu : IState
 {
     private readonly IStateProvider _stateProvider;
     private readonly IAuthenticationInfoProvider _authenticationInfo;
+    private readonly IAuthenticationProvider _authenticationProvider;
 
     public Registration_CheckAuthorizationState_Menu(
         IStateProvider stateProvider,
-        IAuthenticationInfoProvider authenticationInfo)
+        IAuthenticationInfoProvider authenticationInfo,
+        IAuthenticationProvider authenticationProvider)
     {
         _stateProvider = stateProvider;
         _authenticationInfo = authenticationInfo;
+        _authenticationProvider = authenticationProvider;
     }
 
     public void Enter()
     {
         if (_authenticationInfo.IsAuthorized)
+            //_authenticationProvider.SignOut();
             _stateProvider.SetState(_stateProvider.GetState<Registration_StartMainState_Menu>());
         else
             _stateProvider.SetState(_stateProvider.GetState<Registration_NicknameProfileInputState_Menu>());

@@ -39,7 +39,7 @@ public sealed class FirebaseDatabaseModel : IDisposable
         {
             DataSnapshot snapshot = await _database.RootReference
                 .Child(UsersNode)
-                .OrderByChild("Level")
+                .OrderByChild("Money")
                 .LimitToLast(count)
                 .GetValueAsync()
                 .AsUniTask()
@@ -91,7 +91,7 @@ public sealed class FirebaseDatabaseModel : IDisposable
         {
             DataSnapshot snapshot = await _database.RootReference
                 .Child(UsersNode)
-                .OrderByChild("Level")
+                .OrderByChild("Money")
                 .LimitToLast(place)
                 .GetValueAsync()
                 .AsUniTask()
@@ -151,7 +151,7 @@ public sealed class FirebaseDatabaseModel : IDisposable
     private static PlayerData ReadPlayerData(DataSnapshot snapshot)
     {
         string nickname = snapshot.Child("Nickname").Value?.ToString() ?? string.Empty;
-        int level = FirebasePlayerDatabaseModel.ReadInt(snapshot.Child("Level").Value);
+        int level = FirebasePlayerDatabaseModel.ReadInt(snapshot.Child("Money").Value);
 
         return new PlayerData(nickname, level);
     }

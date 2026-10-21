@@ -37,12 +37,12 @@ public class ChipMoveState_Game : IState
 
     private void ChangeStateToLose()
     {
-        _stateProvider.SetState(_stateProvider.GetState<LoseState_Game>());
+        _stateProvider.SetState(_stateProvider.GetState<LoseChipState_Game>());
     }
 
     private void ChangeStateToWin()
     {
-        _stateProvider.SetState(_stateProvider.GetState<WinState_Game>());
+        _stateProvider.SetState(_stateProvider.GetState<WinChipState_Game>());
     }
 
     private void ChangeSceneToMenu()

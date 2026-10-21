@@ -1,21 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class WinState_Game : AsyncState
+public class LoseChipState_Game : AsyncState
 {
     private readonly IStateProvider _stateProvider;
     private readonly UIRoot_Game _sceneRoot;
-    private readonly IMoneyProvider _moneyProvider;
     private readonly ISceneService _sceneService;
 
-    public WinState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, IMoneyProvider moneyProvider, ISceneService sceneService)
+    public LoseChipState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
-        _moneyProvider = moneyProvider;
         _sceneService = sceneService;
     }
 
@@ -23,14 +21,12 @@ public class WinState_Game : AsyncState
     {
         _sceneRoot.OnClickExit_MainHeader += ChangeSceneToMenu;
 
-        _moneyProvider.ChangeMoney(10);
-
-        _sceneRoot.ShowHitPanel();
+        _sceneRoot.ShowMissPanel();
         _sceneRoot.HideMainPanel();
 
-        await UniTask.WaitForSeconds(4f);
+        await UniTask.WaitForSeconds(2.4f);
 
-        _sceneRoot.HideHitPanel();
+        _sceneRoot.HideMissPanel();
         _sceneRoot.ShowMainPanel();
 
         ChangeStateToRouletteClick();

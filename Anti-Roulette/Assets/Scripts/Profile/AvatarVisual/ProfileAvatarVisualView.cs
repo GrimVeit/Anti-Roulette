@@ -7,7 +7,7 @@ public class ProfileAvatarVisualView : View
 {
     [SerializeField] private List<Sprite> avatars = new();
     [SerializeField] private Sprite spriteZero;
-    [SerializeField] private Image imageAvatar;
+    [SerializeField] private List<Image> imageAvatars;
 
     public void SetAvatar(int index)
     {
@@ -22,6 +22,6 @@ public class ProfileAvatarVisualView : View
 
     private void ApplyAvatar(Sprite sprite)
     {
-        imageAvatar.sprite = sprite;
+        imageAvatars.ForEach(a => a.sprite = sprite);
     }
 }

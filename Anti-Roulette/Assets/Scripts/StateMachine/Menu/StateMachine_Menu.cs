@@ -15,6 +15,13 @@ public class StateMachine_Menu : IStateProvider
         var root = container.Resolve<UIRoot_Menu>();
 
         states[typeof(HoldOnStartState_Menu)] = new HoldOnStartState_Menu(this);
+
+        states[typeof(Registration_CheckAuthorizationState_Menu)] = new Registration_CheckAuthorizationState_Menu(this, container.Resolve<IAuthenticationInfoProvider>(), container.Resolve<IAuthenticationProvider>());
+        states[typeof(Registration_NicknameProfileInputState_Menu)] = new Registration_NicknameProfileInputState_Menu(this, container.Resolve<IPlayerProfileEventsProvider>(), root);
+        states[typeof(Registration_AvatarState_Menu)] = new Registration_AvatarState_Menu(this, root);
+        states[typeof(RegistrationState_Game)] = new RegistrationState_Game(this, container.Resolve<IPlayerProfileInfoProvider>(), container.Resolve<IAuthenticationProvider>(), container.Resolve<IPlayerDatabaseProvider>(), root, container.Resolve<IMoneyProvider>(), container.Resolve<IAuthLoadStatusProvider>());
+        states[typeof(Registration_StartMainState_Menu)] = new Registration_StartMainState_Menu(this, container.Resolve<IPlayerDatabaseProvider>(), container.Resolve<IAuthenticationInfoProvider>(), container.Resolve<IPlayerProfileInfoProvider>(), container.Resolve<IDatabaseProvider>(), container.Resolve<IMoneyInfoProvider>());
+
         states[typeof(MainState_Menu)] = new MainState_Menu(this, root, container.Resolve<ISceneService>());
         states[typeof(SettingsState_Menu)] = new SettingsState_Menu(this, root);
         states[typeof(LeaderboardState_Menu)] = new LeaderboardState_Menu(this, root);

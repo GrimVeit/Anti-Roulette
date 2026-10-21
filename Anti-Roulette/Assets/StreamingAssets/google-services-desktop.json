@@ -1,0 +1,32 @@
+{
+  "project_info": {
+    "project_number": "901154878854",
+    "firebase_url": "https://anti-roulette-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "anti-roulette",
+    "storage_bucket": "anti-roulette.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901154878854:ios:67179be1bdd7b2e8276807",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.Anti-Roulette"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVT5KEoQ6NKUlbMWy2pAFyE8UcPjjl1x8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChipCounterPresenter
+public class ChipCounterPresenter : IChipCounterInfo
 {
     private readonly ChipCounterModel _model;
     private readonly ChipCounterView _view;
@@ -35,4 +35,15 @@ public class ChipCounterPresenter
     {
         _model.OnChangeCount -= _view.SetCount;
     }
+
+    #region Output
+
+    public int Count => _model.CurrentCount;
+
+    #endregion
+}
+
+public interface IChipCounterInfo
+{
+    public int Count { get; }
 }

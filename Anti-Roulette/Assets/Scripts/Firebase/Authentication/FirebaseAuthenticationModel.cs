@@ -84,7 +84,7 @@ public sealed class FirebaseAuthenticationModel : IDisposable
                 return AuthenticationResult.TooManyRequests;
 
             default:
-                Debug.LogException(exception);
+                Debug.LogWarning(exception);
                 return AuthenticationResult.UnknownError;
         }
     }

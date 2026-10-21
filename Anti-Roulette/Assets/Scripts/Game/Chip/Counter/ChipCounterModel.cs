@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class ChipCounterModel
 {
+    public int CurrentCount => _currentCount;
+
     private readonly IChipPseudoListener _chipPseudoListener;
     private readonly int _allCount;
+    private int _currentCount;
 
     public ChipCounterModel(IChipPseudoListener chipPseudoListener, int allCount)
     {
@@ -28,7 +31,9 @@ public class ChipCounterModel
 
     private void ChangeCount(int currentCount)
     {
-        OnChangeCount?.Invoke(currentCount, _allCount);
+        _currentCount = currentCount;
+
+        OnChangeCount?.Invoke(_currentCount, _allCount);
     }
 
     #region Output

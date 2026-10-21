@@ -21,25 +21,29 @@ public class Registration_NicknameProfileInputState_Menu : IState
 
     public void Enter()
     {
-        _profileEvents.OnProfileChanged += OnProfileChanged;
+        _sceneRoot.OnClickRegistrate_Registration += ChangeStateToRegistration;
+        _sceneRoot.OnClickSelectAvatar_Registration += ChangeStateToSelectAvatar;
 
-        //_sceneRoot.ShowRegistrationPanel();
+        _sceneRoot.ShowRegistrationPanel();
+        _sceneRoot.ShowRegistrationGirlPanel();
     }
 
     public void Exit()
     {
-        _profileEvents.OnProfileChanged -= OnProfileChanged;
-
-        //_sceneRoot.HideRegistrationPanel();
-    }
-
-    private void OnProfileChanged(IPlayerProfile profile)
-    {
-        ChangeStateToRegistration();
+        _sceneRoot.OnClickRegistrate_Registration -= ChangeStateToRegistration;
+        _sceneRoot.OnClickSelectAvatar_Registration -= ChangeStateToSelectAvatar;
     }
 
     private void ChangeStateToRegistration()
     {
         _stateProvider.SetState(_stateProvider.GetState<RegistrationState_Game>());
+    }
+
+    private void ChangeStateToSelectAvatar()
+    {
+        _sceneRoot.HideRegistrationGirlPanel();
+        _sceneRoot.HideRegistrationPanel();
+
+        _stateProvider.SetState(_stateProvider.GetState<Registration_AvatarState_Menu>());
     }
 }

@@ -7,6 +7,10 @@ public class UIRoot_Menu : UIRoot
 {
     [SerializeField] private BackgroundFadePanel_Menu backgroundFadePanel;
 
+    [Header("Registration")]
+    [SerializeField] private RegistrationPanel_Menu registrationPanel;
+    [SerializeField] private RegistrationGirlPanel_Menu registrationGirlPanel;
+
     [Header("Main")]
     [SerializeField] private MainLeftUpPanel_Menu mainLeftUpPanel;
     [SerializeField] private MainRightUpPanel_Menu mainRightUpPanel;
@@ -33,6 +37,9 @@ public class UIRoot_Menu : UIRoot
         ActivateEvents();
 
         backgroundFadePanel.Initialize();
+
+        registrationPanel.Initialize();
+        registrationGirlPanel.Initialize();
 
         mainLeftUpPanel.Initialize();
         mainRightUpPanel.Initialize();
@@ -61,6 +68,9 @@ public class UIRoot_Menu : UIRoot
 
         backgroundFadePanel.Dispose();
 
+        registrationPanel.Dispose();
+        registrationGirlPanel.Dispose();
+
         mainLeftUpPanel.Dispose();
         mainRightUpPanel.Dispose();
         mainSpinPanel.Dispose();
@@ -78,6 +88,9 @@ public class UIRoot_Menu : UIRoot
 
     private void ActivateEvents()
     {
+        registrationPanel.OnClickRegistration += ClickRegistrate_Registration;
+        registrationPanel.OnClickAvatar += ClickSelectAvatar_Registration;
+
         mainLeftUpPanel.OnClickAvatars += ClickAvatars_MainLeftUp;
         mainLeftUpPanel.OnClickSettings += ClickSettings_MainLeftUp;
 
@@ -101,6 +114,9 @@ public class UIRoot_Menu : UIRoot
 
     private void DeactivateEvents()
     {
+        registrationPanel.OnClickRegistration -= ClickRegistrate_Registration;
+        registrationPanel.OnClickAvatar -= ClickSelectAvatar_Registration;
+
         mainLeftUpPanel.OnClickAvatars -= ClickAvatars_MainLeftUp;
         mainLeftUpPanel.OnClickSettings -= ClickSettings_MainLeftUp;
 
@@ -132,6 +148,31 @@ public class UIRoot_Menu : UIRoot
     public void HideBackgroundFadePanel()
     {
         HidePanel(backgroundFadePanel);
+    }
+
+
+
+
+
+    public void ShowRegistrationPanel()
+    {
+        ShowPanel(registrationPanel);
+    }
+
+    public void HideRegistrationPanel()
+    {
+        HidePanel(registrationPanel);
+    }
+
+
+    public void ShowRegistrationGirlPanel()
+    {
+        ShowPanel(registrationGirlPanel);
+    }
+
+    public void HideRegistrationGirlPanel()
+    {
+        HidePanel(registrationGirlPanel);
     }
 
 
@@ -258,6 +299,18 @@ public class UIRoot_Menu : UIRoot
     #endregion
 
     #region Output
+
+    public event Action OnClickSelectAvatar_Registration;
+    public event Action OnClickRegistrate_Registration;
+
+    private void ClickRegistrate_Registration()
+    {
+        OnClickRegistrate_Registration?.Invoke();
+    }
+    private void ClickSelectAvatar_Registration()
+    {
+        OnClickSelectAvatar_Registration?.Invoke();
+    }
 
     #region MAIN
 

@@ -10,6 +10,7 @@ public class RegistrationState_Game : AsyncState
     private readonly IAuthenticationProvider _authentication;
     private readonly IPlayerDatabaseProvider _database;
     private readonly IMoneyProvider _moneyProvider;
+    private readonly IAuthLoadStatusProvider _authLoadStatusProvider;
 
     private readonly UIRoot_Menu _sceneRoot;
 
@@ -19,7 +20,8 @@ public class RegistrationState_Game : AsyncState
         IAuthenticationProvider authentication,
         IPlayerDatabaseProvider database,
         UIRoot_Menu sceneRoot,
-        IMoneyProvider moneyProvider)
+        IMoneyProvider moneyProvider,
+        IAuthLoadStatusProvider authLoadStatusProvider)
     {
         _stateProvider = stateProvider;
         _profileInfo = profileInfo;
@@ -27,17 +29,19 @@ public class RegistrationState_Game : AsyncState
         _database = database;
         _sceneRoot = sceneRoot;
         _moneyProvider = moneyProvider;
+        _authLoadStatusProvider = authLoadStatusProvider;
     }
 
     protected override async UniTask EnterAsync(CancellationToken token)
     {
-        //_sceneRoot.ShowRegistrationLoadingPanel();
+        _authLoadStatusProvider.Load();
 
         AuthenticationResult authResult = await _authentication.EnsureSignedInAsync();
 
         if (authResult != AuthenticationResult.Success)
         {
             ChangeStateToProfileInput();
+            _authLoadStatusProvider.Show();
             return;
         }
 
@@ -50,14 +54,10 @@ public class RegistrationState_Game : AsyncState
         if (dbResult != DatabaseResult.Success)
             Debug.LogWarning($"CreateOrUpdatePlayer failed: {dbResult}");
 
+        _sceneRoot.HideRegistrationGirlPanel();
+        _sceneRoot.HideRegistrationPanel();
+
         ChangeStateToStartMain();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        //_sceneRoot.HideRegistrationLoadingPanel();
     }
 
     private void ChangeStateToProfileInput()

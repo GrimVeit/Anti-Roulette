@@ -11,6 +11,12 @@ public class UIRoot_Game : UIRoot
     [SerializeField] private HitPanel_Game hitPanel;
     [SerializeField] private MissPanel_Game missPanel;
 
+    [Header("Finish")]
+    [SerializeField] private FadePanel finishBackgroundPanel;
+    [SerializeField] private FinishButtonsPanel_Game finishButtonsPanel;
+    [SerializeField] private FinishGirlPanel_Game finishGirlPanel;
+    [SerializeField] private FinishLinePanel_Game finishLinePanel;
+
     public override void Initialize()
     {
         ActivateEvents();
@@ -21,6 +27,11 @@ public class UIRoot_Game : UIRoot
         numberPresentationPanel.Initialize();
         hitPanel.Initialize();
         missPanel.Initialize();
+
+        finishBackgroundPanel.Initialize();
+        finishButtonsPanel.Initialize();
+        finishGirlPanel.Initialize();
+        finishLinePanel.Initialize();
     }
 
     public override void Dispose()
@@ -40,18 +51,29 @@ public class UIRoot_Game : UIRoot
         numberPresentationPanel.Dispose();
         hitPanel.Dispose();
         missPanel.Dispose();
+
+        finishBackgroundPanel.Dispose();
+        finishButtonsPanel.Dispose();
+        finishGirlPanel.Dispose();
+        finishLinePanel.Dispose();
     }
 
     private void ActivateEvents()
     {
         mainHeaderPanel.OnClickExit += ClickExit_MainHeader;
         mainHeaderPanel.OnClickRoulette += ClickRoulette_MainHeader;
+
+        finishButtonsPanel.OnClickExit += ClickExit_FinishButtons;
+        finishButtonsPanel.OnClickRestart += ClickRestart_FinishButtons;
     }
 
     private void DeactivateEvents()
     {
         mainHeaderPanel.OnClickExit -= ClickExit_MainHeader;
         mainHeaderPanel.OnClickRoulette -= ClickRoulette_MainHeader;
+
+        finishButtonsPanel.OnClickExit -= ClickExit_FinishButtons;
+        finishButtonsPanel.OnClickRestart -= ClickRestart_FinishButtons;
     }
 
     #region Input
@@ -127,6 +149,53 @@ public class UIRoot_Game : UIRoot
         HidePanel(missPanel);
     }
 
+
+
+
+
+    public void ShowFinishBackgroundPanel()
+    {
+        ShowPanel(finishBackgroundPanel);
+    }
+
+    public void HideFinishBackgroundPanel()
+    {
+        HidePanel(finishBackgroundPanel);
+    }
+
+
+    public void ShowFinishButtonsPanel()
+    {
+        ShowPanel(finishButtonsPanel);
+    }
+
+    public void HideFinishButtonsPanel()
+    {
+        HidePanel(finishButtonsPanel);
+    }
+
+
+    public void ShowFinishGirlPanel()
+    {
+        ShowPanel(finishGirlPanel);
+    }
+
+    public void HideFinishGirlPanel()
+    {
+        HidePanel(finishGirlPanel);
+    }
+
+
+    public void ShowFinishLinePanel()
+    {
+        ShowPanel(finishLinePanel);
+    }
+
+    public void HideFinishLinePanel()
+    {
+        HidePanel(finishLinePanel);
+    }
+
     #endregion
 
 
@@ -144,6 +213,21 @@ public class UIRoot_Game : UIRoot
     private void ClickRoulette_MainHeader()
     {
         OnClickRoulette_MainHeader?.Invoke();
+    }
+
+
+
+    public event Action OnClickExit_FinishButtons;
+    public event Action OnClickRestart_FinishButtons;
+
+    private void ClickExit_FinishButtons()
+    {
+        OnClickExit_FinishButtons?.Invoke();
+    }
+
+    private void ClickRestart_FinishButtons()
+    {
+        OnClickRestart_FinishButtons?.Invoke();
     }
 
     #endregion

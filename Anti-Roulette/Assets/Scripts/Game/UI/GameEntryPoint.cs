@@ -127,6 +127,7 @@ public class GameEntryPoint : SceneEntryPoint
         container.RegisterInstance<IChipPseudoListener>(_chipPseudoSpawnerPresenter);
 
         _chipCounterPresenter = new ChipCounterPresenter(new ChipCounterModel(_chipPseudoSpawnerPresenter, 5), _viewContainer.GetView<ChipCounterView>());
+        container.RegisterInstance<IChipCounterInfo>(_chipCounterPresenter);
 
         _chipArrowPresenter = new ChipArrowPresenter(new ChipArrowModel(), _viewContainer.GetView<ChipArrowView>());
         container.RegisterInstance<IChipArrowInfo>(_chipArrowPresenter);

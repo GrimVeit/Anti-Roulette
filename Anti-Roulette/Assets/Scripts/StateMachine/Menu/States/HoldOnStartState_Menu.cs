@@ -15,11 +15,11 @@ public class HoldOnStartState_Menu : AsyncState
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
 
-        ChangeStateToIntro();
+        ChangeStateToCheck();
     }
 
-    private void ChangeStateToIntro()
+    private void ChangeStateToCheck()
     {
-        _stateProvider.SetState(_stateProvider.GetState<MainState_Menu>());
+        _stateProvider.SetState(_stateProvider.GetState<Registration_CheckAuthorizationState_Menu>());
     }
 }
