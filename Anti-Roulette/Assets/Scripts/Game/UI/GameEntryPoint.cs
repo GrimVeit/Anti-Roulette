@@ -17,6 +17,8 @@ public class GameEntryPoint : SceneEntryPoint
     private WheelVisualPresenter _wheelVisualPresenter;
     private ProfileAvatarVisualPresenter _profileAvatarVisualPresenter;
 
+    private FinishPresenter _finishPresenter;
+
     private StoreNumberSectorPresenter _storeNumberSectorPresenter;
     private NumberSectorVisualPresenter _numberSectorVisualPresenter;
     private NumberSectorHighlightPresenter _numberSectorHighlightPresenter;
@@ -72,6 +74,8 @@ public class GameEntryPoint : SceneEntryPoint
 
         _profileAvatarVisualPresenter?.Dispose();
 
+        _finishPresenter?.Dispose();
+
         _numberSectorVisualPresenter?.Dispose();
         _numberSectorHighlightPresenter?.Dispose();
         _numberSectorTriggerPresenter?.Dispose();
@@ -101,6 +105,9 @@ public class GameEntryPoint : SceneEntryPoint
 
         _profileAvatarVisualPresenter = new ProfileAvatarVisualPresenter(new ProfileAvatarVisualModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarVisualView>());
 
+        _finishPresenter = new FinishPresenter(new FinishModel(), _viewContainer.GetView<FinishView>());
+        container.RegisterInstance<IFinishInfo>(_finishPresenter);
+        container.RegisterInstance<IFinishProvider>(_finishPresenter);
 
         _storeNumberSectorPresenter = new StoreNumberSectorPresenter(new StoreNumberSectorModel());
         container.RegisterInstance<IStoreNumberSectorListener>(_storeNumberSectorPresenter);
@@ -122,11 +129,11 @@ public class GameEntryPoint : SceneEntryPoint
         container.RegisterInstance<IRouletteSpinProvider>(_rouletteSpinPresenter);
 
 
-        _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 5), _viewContainer.GetView<ChipPseudoSpawnerView>());
+        _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 2), _viewContainer.GetView<ChipPseudoSpawnerView>());
         container.RegisterInstance<IChipPseudoProvider>(_chipPseudoSpawnerPresenter);
         container.RegisterInstance<IChipPseudoListener>(_chipPseudoSpawnerPresenter);
 
-        _chipCounterPresenter = new ChipCounterPresenter(new ChipCounterModel(_chipPseudoSpawnerPresenter, 5), _viewContainer.GetView<ChipCounterView>());
+        _chipCounterPresenter = new ChipCounterPresenter(new ChipCounterModel(_chipPseudoSpawnerPresenter, 2), _viewContainer.GetView<ChipCounterView>());
         container.RegisterInstance<IChipCounterInfo>(_chipCounterPresenter);
 
         _chipArrowPresenter = new ChipArrowPresenter(new ChipArrowModel(), _viewContainer.GetView<ChipArrowView>());
@@ -150,6 +157,8 @@ public class GameEntryPoint : SceneEntryPoint
         _wheelVisualPresenter.Initialize();
 
         _profileAvatarVisualPresenter.Initialize();
+
+        _finishPresenter.Initialize();
 
         _numberSectorVisualPresenter.Initialize();
         _numberSectorHighlightPresenter.Initialize();

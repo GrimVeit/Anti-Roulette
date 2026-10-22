@@ -44,6 +44,10 @@ public class UIRoot_Game : UIRoot
         HideMissPanel();
         HideNumberPresentationPanel();
         HideRoulettePanel();
+        HideFinishBackgroundPanel();
+        HideFinishButtonsPanel();
+        HideFinishGirlPanel();
+        HideFinishLinePanel();
 
         mainHeaderPanel.Dispose();
         mainPanel.Dispose();

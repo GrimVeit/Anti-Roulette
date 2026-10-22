@@ -28,7 +28,7 @@ public class NumberPresentationState_Game : AsyncState
         _sceneRoot.HideRoulettePanel();
         _sceneRoot.ShowMainHeaderPanel();
 
-        await UniTask.WaitForSeconds(2.3f, cancellationToken: token);
+        await UniTask.WaitForSeconds(2.1f, cancellationToken: token);
 
         _sceneRoot.HideRoulettePanel();
         _sceneRoot.HideNumberPresentationPanel();

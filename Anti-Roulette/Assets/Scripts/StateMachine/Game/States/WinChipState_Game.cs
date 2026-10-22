@@ -10,13 +10,15 @@ public class WinChipState_Game : AsyncState
     private readonly UIRoot_Game _sceneRoot;
     private readonly IMoneyProvider _moneyProvider;
     private readonly ISceneService _sceneService;
+    private readonly IFinishProvider _finishProvider;
 
-    public WinChipState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, IMoneyProvider moneyProvider, ISceneService sceneService)
+    public WinChipState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, IMoneyProvider moneyProvider, ISceneService sceneService, IFinishProvider finishProvider)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
         _moneyProvider = moneyProvider;
         _sceneService = sceneService;
+        _finishProvider = finishProvider;
     }
 
     protected override async UniTask EnterAsync(CancellationToken token)
@@ -33,6 +35,8 @@ public class WinChipState_Game : AsyncState
         _sceneRoot.HideHitPanel();
         _sceneRoot.ShowMainPanel();
 
+        _finishProvider.AddWin();
+
         ChangeStateToRouletteClick();
 
         await UniTask.CompletedTask;
@@ -47,7 +51,7 @@ public class WinChipState_Game : AsyncState
 
     private void ChangeStateToRouletteClick()
     {
-        _stateProvider.SetState(_stateProvider.GetState<HoldClickRouletteState_Game>());
+        _stateProvider.SetState(_stateProvider.GetState<CheckFinishState_Game>());
     }
 
     private void ChangeSceneToMenu()

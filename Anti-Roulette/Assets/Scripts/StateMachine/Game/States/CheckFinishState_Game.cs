@@ -6,11 +6,13 @@ public class CheckFinishState_Game : IState
 {
     private readonly IStateProvider _stateProvider;
     private readonly IChipCounterInfo _chipCounterInfo;
+    private readonly IFinishInfo _finishInfo;
 
-    public CheckFinishState_Game(IStateProvider stateProvider, IChipCounterInfo chipCounterInfo)
+    public CheckFinishState_Game(IStateProvider stateProvider, IChipCounterInfo chipCounterInfo, IFinishInfo finishInfo)
     {
         _stateProvider = stateProvider;
         _chipCounterInfo = chipCounterInfo;
+        _finishInfo = finishInfo;
     }
 
     public void Enter()
@@ -21,7 +23,14 @@ public class CheckFinishState_Game : IState
             return;
         }
 
-        ChangeStateToLose();
+        if (_finishInfo.IsWin)
+        {
+            ChangeStateToWin();
+        }
+        else
+        {
+            ChangeStateToLose();
+        }
     }
 
     public void Exit()
@@ -36,11 +45,11 @@ public class CheckFinishState_Game : IState
 
     private void ChangeStateToWin()
     {
-
+        _stateProvider.SetState(_stateProvider.GetState<WinState_Game>());
     }
 
     private void ChangeStateToLose()
     {
-        //_stateProvider.SetState(_stateProvider.GetState<>());
+        _stateProvider.SetState(_stateProvider.GetState<LoseState_Game>());
     }
 }

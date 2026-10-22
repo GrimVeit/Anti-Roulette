@@ -43,7 +43,7 @@ public class LoseChipState_Game : AsyncState
 
     private void ChangeStateToRouletteClick()
     {
-        _stateProvider.SetState(_stateProvider.GetState<HoldClickRouletteState_Game>());
+        _stateProvider.SetState(_stateProvider.GetState<CheckFinishState_Game>());
     }
 
     private void ChangeSceneToMenu()
