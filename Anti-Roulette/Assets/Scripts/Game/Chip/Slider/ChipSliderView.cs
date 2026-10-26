@@ -79,17 +79,19 @@ public class ChipSliderView : View
     private void OnPointerUp()
     {
         if (!isActive) return;
-
         if (!isDragging) return;
         isDragging = false;
 
-        float shotPower = powerSlider.value * maxPower;
-        Debug.Log($"Выстрел силой {shotPower}");
+        float normalized = powerSlider.value;         // уже 0..1
+        float shotPower = normalized * maxPower;
 
-        if(shotPower > 0.5f)
+        Debug.Log($"Выстрел силой {shotPower} ({normalized:P0})");
+
+        if (shotPower > 0.5f)
+        {
             OnShotPower?.Invoke(shotPower);
-
-        // тут запускай сам выстрел: shotPower
+            OnShotPowerNormalized?.Invoke(normalized);
+        }
 
         if (returnRoutine != null) StopCoroutine(returnRoutine);
         returnRoutine = StartCoroutine(ReturnToZero());
@@ -118,6 +120,7 @@ public class ChipSliderView : View
     #region Output
 
     public event Action<float> OnShotPower;
+    public event Action<float> OnShotPowerNormalized;
 
     #endregion
 }

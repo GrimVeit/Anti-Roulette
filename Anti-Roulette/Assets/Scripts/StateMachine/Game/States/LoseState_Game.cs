@@ -10,14 +10,18 @@ public class LoseState_Game : AsyncState
 
     private readonly IFinishProvider _finishProvider;
     private readonly IChipPseudoProvider _chipPseudoProvider;
+    private readonly IGameIncomeProvider _gameIncomeProvider;
+    private readonly IChipSpawnerProvider _chipSpawnerProvider;
 
-    public LoseState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService, IFinishProvider finishProvider, IChipPseudoProvider chipPseudoProvider)
+    public LoseState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService, IFinishProvider finishProvider, IChipPseudoProvider chipPseudoProvider, IGameIncomeProvider gameIncomeProvider, IChipSpawnerProvider chipSpawnerProvider)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
         _sceneService = sceneService;
         _finishProvider = finishProvider;
         _chipPseudoProvider = chipPseudoProvider;
+        _gameIncomeProvider = gameIncomeProvider;
+        _chipSpawnerProvider = chipSpawnerProvider;
     }
 
     protected override async UniTask EnterAsync(CancellationToken token)
@@ -63,11 +67,10 @@ public class LoseState_Game : AsyncState
 
     private void ChangeStateToRoulette()
     {
-        Debug.Log("1");
         _chipPseudoProvider.Reload();
-        Debug.Log("2");
         _finishProvider.Reset();
-        Debug.Log("3");
+        _gameIncomeProvider.Reset();
+        _chipSpawnerProvider.Clear();
 
         _stateProvider.SetState(_stateProvider.GetState<RouletteSpinState_Game>());
     }

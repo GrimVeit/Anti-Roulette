@@ -8,12 +8,14 @@ public class ChipSelectVisualModel
     private readonly IChipInfoProvider _chipInfoProvider;
     private readonly IChipListener _chipListener;
     private readonly IChipProvider _chipProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public ChipSelectVisualModel(IChipInfoProvider chipInfoProvider, IChipListener chipListener, IChipProvider chipProvider)
+    public ChipSelectVisualModel(IChipInfoProvider chipInfoProvider, IChipListener chipListener, IChipProvider chipProvider, ISoundProvider soundProvider)
     {
         _chipInfoProvider = chipInfoProvider;
         _chipListener = chipListener;
         _chipProvider = chipProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -36,6 +38,8 @@ public class ChipSelectVisualModel
         if (_chipInfoProvider.CurrentChipIndex == index) return;
 
         if (!_chipInfoProvider.GetChip(index).IsOpened) return;
+
+        _soundProvider.PlayOneShot("Click_Chip");
 
         OnDeselect?.Invoke(_chipInfoProvider.CurrentChipIndex);
 

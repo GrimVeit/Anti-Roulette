@@ -20,7 +20,7 @@ public class RouletteSpinState_Game : IState
         _rouletteSpinProvider.OnStopped += ChangeStateToRoulette;
 
         _sceneRoot.ShowRoulettePanel();
-        _rouletteSpinProvider.Spin(4);
+        _rouletteSpinProvider.Spin(1.7f);
     }
 
     public void Exit()

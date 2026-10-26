@@ -5,11 +5,13 @@ public class ChipPseudoSpawnerModel
     private readonly IChipInfoProvider _chipInfoProvider;
     private readonly int _allCount;
     private int _currentCount;
+    private readonly ISoundProvider _soundProvider;
 
-    public ChipPseudoSpawnerModel(IChipInfoProvider chipInfoProvider, int spawnCount)
+    public ChipPseudoSpawnerModel(IChipInfoProvider chipInfoProvider, int spawnCount, ISoundProvider soundProvider)
     {
         _chipInfoProvider = chipInfoProvider;
         _allCount = spawnCount;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -24,6 +26,8 @@ public class ChipPseudoSpawnerModel
     public bool MoveToStart()
     {
         if (_currentCount <= 0) return false;
+
+        _soundProvider.PlayOneShot("Chip_Drop");
 
         _currentCount -= 1;
         OnMoveStart?.Invoke();

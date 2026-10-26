@@ -9,12 +9,14 @@ public class NumberPresentationState_Game : AsyncState
     private readonly IStateProvider _stateProvider;
     private readonly UIRoot_Game _sceneRoot;
     private readonly ISceneService _sceneService;
+    private readonly ISoundProvider _soundProvider;
 
-    public NumberPresentationState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService)
+    public NumberPresentationState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService, ISoundProvider soundProvider)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
         _sceneService = sceneService;
+        _soundProvider = soundProvider;
     }
 
     protected override async UniTask EnterAsync(CancellationToken token)
@@ -23,12 +25,14 @@ public class NumberPresentationState_Game : AsyncState
 
         _sceneRoot.ShowNumberPresentationPanel();
 
+        _soundProvider.PlayOneShot("Number_Present");
+
         await UniTask.WaitForSeconds(1.5f);
 
         _sceneRoot.HideRoulettePanel();
         _sceneRoot.ShowMainHeaderPanel();
 
-        await UniTask.WaitForSeconds(2.1f, cancellationToken: token);
+        await UniTask.WaitForSeconds(2.4f, cancellationToken: token);
 
         _sceneRoot.HideRoulettePanel();
         _sceneRoot.HideNumberPresentationPanel();

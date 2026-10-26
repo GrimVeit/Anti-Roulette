@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ChipPseudoSpawnerView : View
 {
-    [SerializeField] private float timeMove;
+    [SerializeField] private float timeMove = 1;
     [SerializeField] private Transform transformSpawn;
     [SerializeField] private ChipPseudo chipPseudo_Prefab;
     [SerializeField] private Transform transformPointSpawn;

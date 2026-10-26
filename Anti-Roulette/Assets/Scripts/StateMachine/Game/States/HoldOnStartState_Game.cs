@@ -15,7 +15,7 @@ public class HoldOnStartState_Game : AsyncState
 
     protected override async UniTask EnterAsync(CancellationToken token)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.13f), cancellationToken: token);
 
         ChangeStateToMahjongGenerate();
     }

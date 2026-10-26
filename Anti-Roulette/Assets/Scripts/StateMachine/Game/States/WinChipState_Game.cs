@@ -8,15 +8,15 @@ public class WinChipState_Game : AsyncState
 {
     private readonly IStateProvider _stateProvider;
     private readonly UIRoot_Game _sceneRoot;
-    private readonly IMoneyProvider _moneyProvider;
+    private readonly IGameIncomeProvider _gameIncomeProvider;
     private readonly ISceneService _sceneService;
     private readonly IFinishProvider _finishProvider;
 
-    public WinChipState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, IMoneyProvider moneyProvider, ISceneService sceneService, IFinishProvider finishProvider)
+    public WinChipState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, IGameIncomeProvider gameIncomeProvider, ISceneService sceneService, IFinishProvider finishProvider)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
-        _moneyProvider = moneyProvider;
+        _gameIncomeProvider = gameIncomeProvider;
         _sceneService = sceneService;
         _finishProvider = finishProvider;
     }
@@ -25,7 +25,7 @@ public class WinChipState_Game : AsyncState
     {
         _sceneRoot.OnClickExit_MainHeader += ChangeSceneToMenu;
 
-        _moneyProvider.ChangeMoney(10);
+        _gameIncomeProvider.Add(10);
 
         _sceneRoot.ShowHitPanel();
         _sceneRoot.HideMainPanel();

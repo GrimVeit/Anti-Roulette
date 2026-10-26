@@ -306,12 +306,68 @@ MonoBehaviour:
   sounds:
   - id: Background
     audioSource: {fileID: 1049314515}
-    audioClip: {fileID: 8300000, guid: ea9aab5833f6b6d459224c567a6f582e, type: 3}
+    audioClip: {fileID: 8300000, guid: 6d7db3c1b3372064ea924720d3d570c4, type: 3}
     volume: 1
     pitch: 1
     isLoop: 1
     isPlayAwake: 1
     audioType: 1
+  - id: Click_Spin
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: ad4f291f07251664ca7da9488da6f14a, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Open
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Close
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+    volume: 1
+    pitch: 0.8
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Avatar
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+    volume: 1
+    pitch: 0.8
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Background
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+    volume: 1
+    pitch: 0.8
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Wheel
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+    volume: 1
+    pitch: 0.8
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
+  - id: Click_Chip
+    audioSource: {fileID: 952061489}
+    audioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+    volume: 1
+    pitch: 0.8
+    isLoop: 0
+    isPlayAwake: 0
+    audioType: 0
   backgroundDatas:
   - {fileID: 11400000, guid: e1e96b7d819828a4582564e033f6e659, type: 2}
   - {fileID: 11400000, guid: 47be716dd60fa97408679b53c6c8cb27, type: 2}

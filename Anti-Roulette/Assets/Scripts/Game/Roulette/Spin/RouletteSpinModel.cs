@@ -5,8 +5,17 @@ using UnityEngine;
 
 public class RouletteSpinModel
 {
+    private readonly ISoundProvider _soundProvider;
+
+    public RouletteSpinModel(ISoundProvider soundProvider)
+    {
+        _soundProvider = soundProvider;
+    }
+
     public void Spin(float time)
     {
+        _soundProvider.PlayOneShot("Wheel");
+
         OnSpin?.Invoke(time);
     }
 

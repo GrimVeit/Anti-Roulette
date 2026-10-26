@@ -5,12 +5,14 @@ public class ProfileAvatarSelectModel
     private readonly IPlayerProfileEventsProvider _playerProfileEventsProvider;
     private readonly IPlayerProfileInfoProvider _playerProfileInfoProvider;
     private readonly IPlayerProfileProvider _playerProfileProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public ProfileAvatarSelectModel(IPlayerProfileEventsProvider playerProfileEventsProvider, IPlayerProfileInfoProvider playerProfileInfoProvider, IPlayerProfileProvider playerProfileProvider)
+    public ProfileAvatarSelectModel(IPlayerProfileEventsProvider playerProfileEventsProvider, IPlayerProfileInfoProvider playerProfileInfoProvider, IPlayerProfileProvider playerProfileProvider, ISoundProvider soundProvider)
     {
         _playerProfileEventsProvider = playerProfileEventsProvider;
         _playerProfileInfoProvider = playerProfileInfoProvider;
         _playerProfileProvider = playerProfileProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -28,6 +30,8 @@ public class ProfileAvatarSelectModel
     public void SelectAvatar(int index)
     {
         if (!_playerProfileInfoProvider.IsValidAvatar(index)) return;
+
+        _soundProvider.PlayOneShot("Click_Avatar");
 
         var current = _playerProfileInfoProvider.Profile.Avatar;
 

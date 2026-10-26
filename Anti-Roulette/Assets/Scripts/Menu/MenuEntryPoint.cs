@@ -145,11 +145,11 @@ public class MenuEntryPoint : SceneEntryPoint
         _chipShopVisualPresenter = new ChipShopVisualPresenter(new ChipShopVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter, _storeMoneyPresenter), _viewContainer.GetView<ChipShopVisualView>());
         _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(), _viewContainer.GetView<ShopTypeVisualView>());
 
-        _backgroundSelectVisualPresenter = new BackgroundSelectVisualPresenter(new BackgroundSelectVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter), _viewContainer.GetView<BackgroundSelectVisualView>());
-        _wheelSelectVisualPresenter = new WheelSelectVisualPresenter(new WheelSelectVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter), _viewContainer.GetView<WheelSelectVisualView>());
-        _chipSelectVisualPresenter = new ChipSelectVisualPresenter(new ChipSelectVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter), _viewContainer.GetView<ChipSelectVisualView>());
+        _backgroundSelectVisualPresenter = new BackgroundSelectVisualPresenter(new BackgroundSelectVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _soundPresenter), _viewContainer.GetView<BackgroundSelectVisualView>());
+        _wheelSelectVisualPresenter = new WheelSelectVisualPresenter(new WheelSelectVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _soundPresenter), _viewContainer.GetView<WheelSelectVisualView>());
+        _chipSelectVisualPresenter = new ChipSelectVisualPresenter(new ChipSelectVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter, _soundPresenter), _viewContainer.GetView<ChipSelectVisualView>());
 
-        _profileAvatarSelectPresenter = new ProfileAvatarSelectPresenter(new ProfileAvatarSelectModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarSelectView>());
+        _profileAvatarSelectPresenter = new ProfileAvatarSelectPresenter(new ProfileAvatarSelectModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter, _storePlayerProfilePresenter, _soundPresenter), _viewContainer.GetView<ProfileAvatarSelectView>());
         _profileAvatarVisualPresenter = new ProfileAvatarVisualPresenter(new ProfileAvatarVisualModel(_storePlayerProfilePresenter, _storePlayerProfilePresenter), _viewContainer.GetView<ProfileAvatarVisualView>());
 
         _stateMachine = new StateMachine_Menu(container);

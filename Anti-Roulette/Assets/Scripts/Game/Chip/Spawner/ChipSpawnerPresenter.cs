@@ -45,6 +45,7 @@ public class ChipSpawnerPresenter : IChipSpawnerProvider, IChipSpawnerListener
     #region Input
 
     public void Spawn(Vector2 direction, float power) => _model.Spawn(direction, power);
+    public void Clear() => _view.ClearAll();
 
     #endregion
 }
@@ -57,4 +58,5 @@ public interface IChipSpawnerListener
 public interface IChipSpawnerProvider
 {
     public void Spawn(Vector2 direction, float power);
+    public void Clear();
 }

@@ -211,11 +211,15 @@ public class UIRoot_Game : UIRoot
 
     private void ClickExit_MainHeader()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickExit_MainHeader?.Invoke();
     }
 
     private void ClickRoulette_MainHeader()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickRoulette_MainHeader?.Invoke();
     }
 
@@ -226,11 +230,15 @@ public class UIRoot_Game : UIRoot
 
     private void ClickExit_FinishButtons()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickExit_FinishButtons?.Invoke();
     }
 
     private void ClickRestart_FinishButtons()
     {
+        _soundProvider.PlayOneShot("Click_Spin");
+
         OnClickRestart_FinishButtons?.Invoke();
     }
 

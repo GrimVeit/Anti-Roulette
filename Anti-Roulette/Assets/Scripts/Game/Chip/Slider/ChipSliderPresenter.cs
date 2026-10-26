@@ -25,12 +25,16 @@ public class ChipSliderPresenter : IChipSliderListen, IChipSliderActivator
 
     private void ActivateEvents()
     {
+        _view.OnShotPowerNormalized += _model.SetFire;
+
         _model.OnActivate += _view.Activate;
         _model.OnDeactivate += _view.Deactivate;
     }
 
     private void DeactivateEvents()
     {
+        _view.OnShotPowerNormalized -= _model.SetFire;
+
         _model.OnActivate -= _view.Activate;
         _model.OnDeactivate -= _view.Deactivate;
     }

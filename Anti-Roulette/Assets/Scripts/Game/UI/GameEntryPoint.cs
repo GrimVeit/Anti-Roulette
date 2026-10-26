@@ -34,6 +34,8 @@ public class GameEntryPoint : SceneEntryPoint
 
     private ChipSpawnerPresenter _chipSpawnerPresenter;
 
+    private GameIncomePresenter _gameIncomePresenter;
+
     private StateMachine_Game _stateMachine;
 
     #region ENTRY
@@ -89,6 +91,8 @@ public class GameEntryPoint : SceneEntryPoint
 
         _chipSpawnerPresenter?.Dispose();
 
+        _gameIncomePresenter?.Dispose();
+
         _stateMachine?.Dispose();
     }
 
@@ -125,11 +129,11 @@ public class GameEntryPoint : SceneEntryPoint
         _rouletteHighlightPresenter = new RouletteHighlightPresenter(_viewContainer.GetView<RouletteHighlightView>());
         container.RegisterInstance<IRouletteHighlightActivator>(_rouletteHighlightPresenter);
 
-        _rouletteSpinPresenter = new RouletteSpinPresenter(new RouletteSpinModel(), _viewContainer.GetView<RouletteSpinView>());
+        _rouletteSpinPresenter = new RouletteSpinPresenter(new RouletteSpinModel(_soundPresenter), _viewContainer.GetView<RouletteSpinView>());
         container.RegisterInstance<IRouletteSpinProvider>(_rouletteSpinPresenter);
 
 
-        _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 2), _viewContainer.GetView<ChipPseudoSpawnerView>());
+        _chipPseudoSpawnerPresenter = new ChipPseudoSpawnerPresenter(new ChipPseudoSpawnerModel(_storeChipPresenter, 2, _soundPresenter), _viewContainer.GetView<ChipPseudoSpawnerView>());
         container.RegisterInstance<IChipPseudoProvider>(_chipPseudoSpawnerPresenter);
         container.RegisterInstance<IChipPseudoListener>(_chipPseudoSpawnerPresenter);
 
@@ -140,13 +144,16 @@ public class GameEntryPoint : SceneEntryPoint
         container.RegisterInstance<IChipArrowInfo>(_chipArrowPresenter);
         container.RegisterInstance<IChipArrowActivator>(_chipArrowPresenter);
 
-        _chipSliderPresenter = new ChipSliderPresenter(new ChipSliderModel(), _viewContainer.GetView<ChipSliderView>());
+        _chipSliderPresenter = new ChipSliderPresenter(new ChipSliderModel(_soundPresenter), _viewContainer.GetView<ChipSliderView>());
         container.RegisterInstance<IChipSliderListen>(_chipSliderPresenter);
         container.RegisterInstance<IChipSliderActivator>(_chipSliderPresenter);
 
         _chipSpawnerPresenter = new ChipSpawnerPresenter(new ChipSpawnerModel(_storeChipPresenter), _viewContainer.GetView<ChipSpawnerView>());
         container.RegisterInstance<IChipSpawnerProvider>(_chipSpawnerPresenter);
         container.RegisterInstance<IChipSpawnerListener>(_chipSpawnerPresenter);
+
+        _gameIncomePresenter = new GameIncomePresenter(new GameIncomeModel(_storeMoneyPresenter), _viewContainer.GetView<GameIncomeView>());
+        container.RegisterInstance<IGameIncomeProvider>(_gameIncomePresenter);
 
         _stateMachine = new StateMachine_Game(container);
 
@@ -172,6 +179,8 @@ public class GameEntryPoint : SceneEntryPoint
         _chipSliderPresenter.Initialize();
 
         _chipSpawnerPresenter.Initialize();
+
+        _gameIncomePresenter.Initialize();
         
         return UniTask.CompletedTask;
     }

@@ -8,12 +8,14 @@ public class WheelSelectVisualModel
     private readonly IWheelInfoProvider _wheelInfoProvider;
     private readonly IWheelListener _wheelListener;
     private readonly IWheelProvider _wheelProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public WheelSelectVisualModel(IWheelInfoProvider wheelInfoProvider, IWheelListener wheelListener, IWheelProvider wheelProvider)
+    public WheelSelectVisualModel(IWheelInfoProvider wheelInfoProvider, IWheelListener wheelListener, IWheelProvider wheelProvider, ISoundProvider soundProvider)
     {
         _wheelInfoProvider = wheelInfoProvider;
         _wheelListener = wheelListener;
         _wheelProvider = wheelProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -36,6 +38,8 @@ public class WheelSelectVisualModel
         if (_wheelInfoProvider.CurrentWheelIndex == index) return;
 
         if (!_wheelInfoProvider.GetWheel(index).IsOpened) return;
+
+        _soundProvider.PlayOneShot("Click_Wheel");
 
         OnDeselect?.Invoke(_wheelInfoProvider.CurrentWheelIndex);
 

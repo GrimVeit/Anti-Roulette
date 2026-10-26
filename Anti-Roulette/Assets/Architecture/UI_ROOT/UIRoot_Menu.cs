@@ -309,6 +309,8 @@ public class UIRoot_Menu : UIRoot
     }
     private void ClickSelectAvatar_Registration()
     {
+        _soundProvider.PlayOneShot("Click_Close");
+
         OnClickSelectAvatar_Registration?.Invoke();
     }
 
@@ -319,11 +321,15 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickSettings_MainLeftUp()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickSettings_MainLeftUp?.Invoke();
     }
 
     private void ClickAvatars_MainLeftUp()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickAvatars_MainLeftUp?.Invoke();
     }
 
@@ -334,11 +340,15 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickLeaders_MainRightUp()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickLeaders_MainRightUp?.Invoke();
     }
 
     private void ClickShop_MainRightUp()
     {
+        _soundProvider.PlayOneShot("Click_Open");
+
         OnClickShop_MainRightUp?.Invoke();
     }
 
@@ -348,6 +358,8 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickPlay_MainSpin()
     {
+        _soundProvider.PlayOneShot("Click_Spin");
+
         OnClickPlay_MainSpin?.Invoke();
     }
 
@@ -363,6 +375,8 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickExit_LeaderbaordHeader()
     {
+        _soundProvider.PlayOneShot("Click_Close");
+
         OnClickExit_LeaderboardHeader?.Invoke();
     }
 
@@ -376,6 +390,8 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickExit_ShopHeader()
     {
+        _soundProvider.PlayOneShot("Click_Close");
+
         OnClickExit_ShopHeader?.Invoke();
     }
 
@@ -389,6 +405,8 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickExit_Settings()
     {
+        _soundProvider.PlayOneShot("Click_Close");
+
         OnClickExit_Settings?.Invoke();
     }
 
@@ -401,6 +419,8 @@ public class UIRoot_Menu : UIRoot
 
     private void ClickExit_Avatar()
     {
+        _soundProvider.PlayOneShot("Click_Close");
+
         OnClickExit_Avatar?.Invoke();
     }
 

@@ -6,12 +6,14 @@ public class BackgroundSelectVisualModel
     private readonly IBackgroundInfoProvider _backgroundInfoProvider;
     private readonly IBackgroundListener _backgroundListener;
     private readonly IBackgroundProvider _backgroundProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public BackgroundSelectVisualModel(IBackgroundInfoProvider backgroundInfoProvider, IBackgroundListener backgroundListener, IBackgroundProvider backgroundProvider)
+    public BackgroundSelectVisualModel(IBackgroundInfoProvider backgroundInfoProvider, IBackgroundListener backgroundListener, IBackgroundProvider backgroundProvider, ISoundProvider soundProvider)
     {
         _backgroundInfoProvider = backgroundInfoProvider;
         _backgroundListener = backgroundListener;
         _backgroundProvider = backgroundProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -34,6 +36,8 @@ public class BackgroundSelectVisualModel
         if(_backgroundInfoProvider.CurrentBackgroundIndex == index) return;
 
         if(!_backgroundInfoProvider.GetBackground(index).IsOpened) return;
+
+        _soundProvider.PlayOneShot("Click_Background");
 
         OnDeselectBackground?.Invoke(_backgroundInfoProvider.CurrentBackgroundIndex);
 
