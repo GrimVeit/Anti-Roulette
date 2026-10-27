@@ -7,13 +7,15 @@ public class ChipShopVisualModel
     private readonly IChipListener _chipListener;
     private readonly IChipProvider _chipProvider;
     private readonly IMoneyProvider _moneyProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public ChipShopVisualModel(IChipInfoProvider chipInfoProvider, IChipListener chipListener, IChipProvider chipProvider, IMoneyProvider moneyProvider)
+    public ChipShopVisualModel(IChipInfoProvider chipInfoProvider, IChipListener chipListener, IChipProvider chipProvider, IMoneyProvider moneyProvider, ISoundProvider soundProvider)
     {
         _chipInfoProvider = chipInfoProvider;
         _chipListener = chipListener;
         _chipProvider = chipProvider;
         _moneyProvider = moneyProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -44,6 +46,8 @@ public class ChipShopVisualModel
             //NO MONEY
             return;
         }
+
+        _soundProvider.PlayOneShot("Click_Buy");
 
         _moneyProvider.ChangeMoney(-chip.Price);
 

@@ -61,16 +61,6 @@ public class StoreSoundSettingsPresenter : ISoundSettingsInfoProvider, ISoundSet
 
     #region Input
 
-    public void SetSoundVolume(float value)
-    {
-        _model.SetSoundVolume(value);
-    }
-
-    public void SetMusicVolume(float value)
-    {
-        _model.SetMusicVolume(value);
-    }
-
     public void SetMute_Sound(bool value)
     {
         _model.SetMute_Sound(value);
@@ -102,9 +92,6 @@ public interface ISoundSettingsEventsProvider
 
 public interface ISoundSettingsProvider
 {
-    void SetSoundVolume(float value);
-    void SetMusicVolume(float value);
-
     void SetMute_Sound(bool value);
     void SetMute_Music(bool value);
 }

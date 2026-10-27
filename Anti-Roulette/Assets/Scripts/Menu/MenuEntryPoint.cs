@@ -126,7 +126,7 @@ public class MenuEntryPoint : SceneEntryPoint
 
         _leaderboardPresenter = new LeaderboardPresenter(new LeaderboardModel(_firebaseDatabasePresenter), _viewContainer.GetView<LeaderboardView>());
 
-        _authenticationDescriptionPresenter = new AuthenticationDescriptionPresenter(new AuthenticationDescriptionModel(_firebaseAuthenticationPresenter), _viewContainer.GetView<AuthenticationDescriptionView>());
+        _authenticationDescriptionPresenter = new AuthenticationDescriptionPresenter(new AuthenticationDescriptionModel(_firebaseAuthenticationPresenter, _soundPresenter), _viewContainer.GetView<AuthenticationDescriptionView>());
 
         _profileNicknameInputPresenter = new ProfileNicknameInputPresenter(new ProfileNicknameInputModel(_storePlayerProfilePresenter), _viewContainer.GetView<ProfileNicknameInputView>());
 
@@ -140,10 +140,10 @@ public class MenuEntryPoint : SceneEntryPoint
         _volumeSettingsPresenter = new VolumeSettingsPresenter(new VolumeSettingsModel(_storeSoundSettingsPresenter,_storeSoundSettingsPresenter,_storeSoundSettingsPresenter), _viewContainer.GetView<VolumeSettingsView>());
         _moneyVisualPresenter = new MoneyVisualPresenter(new MoneyVisualModel(_storeMoneyPresenter,_storeMoneyPresenter),_viewContainer.GetView<MoneyVisualView>());
 
-        _backgroundShopVisualPresenter = new BackgroundShopVisualPresenter(new BackgroundShopVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _storeMoneyPresenter), _viewContainer.GetView<BackgroundShopVisualView>());
-        _wheelShopVisualPresenter = new WheelShopVisualPresenter(new WheelShopVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _storeMoneyPresenter), _viewContainer.GetView<WheelShopVisualView>());
-        _chipShopVisualPresenter = new ChipShopVisualPresenter(new ChipShopVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter, _storeMoneyPresenter), _viewContainer.GetView<ChipShopVisualView>());
-        _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(), _viewContainer.GetView<ShopTypeVisualView>());
+        _backgroundShopVisualPresenter = new BackgroundShopVisualPresenter(new BackgroundShopVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _storeMoneyPresenter, _soundPresenter), _viewContainer.GetView<BackgroundShopVisualView>());
+        _wheelShopVisualPresenter = new WheelShopVisualPresenter(new WheelShopVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _storeMoneyPresenter, _soundPresenter), _viewContainer.GetView<WheelShopVisualView>());
+        _chipShopVisualPresenter = new ChipShopVisualPresenter(new ChipShopVisualModel(_storeChipPresenter, _storeChipPresenter, _storeChipPresenter, _storeMoneyPresenter, _soundPresenter), _viewContainer.GetView<ChipShopVisualView>());
+        _shopTypeVisualPresenter = new ShopTypeVisualPresenter(new ShopTypeVisualModel(_soundPresenter), _viewContainer.GetView<ShopTypeVisualView>());
 
         _backgroundSelectVisualPresenter = new BackgroundSelectVisualPresenter(new BackgroundSelectVisualModel(_storeBackgroundPresenter, _storeBackgroundPresenter, _storeBackgroundPresenter, _soundPresenter), _viewContainer.GetView<BackgroundSelectVisualView>());
         _wheelSelectVisualPresenter = new WheelSelectVisualPresenter(new WheelSelectVisualModel(_storeWheelPresenter, _storeWheelPresenter, _storeWheelPresenter, _soundPresenter), _viewContainer.GetView<WheelSelectVisualView>());

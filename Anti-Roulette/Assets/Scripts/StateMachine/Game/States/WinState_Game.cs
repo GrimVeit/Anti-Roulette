@@ -14,8 +14,11 @@ public class WinState_Game : AsyncState
     private readonly IChipPseudoProvider _chipPseudoProvider;
     private readonly IGameIncomeProvider _gameIncomeProvider;
     private readonly IChipSpawnerProvider _chipSpawnerProvider;
+    private readonly ISoundProvider _soundProvider;
+    private readonly ISound _soundBackground;
+    private readonly ISound _soundWin;
 
-    public WinState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService, IFinishProvider finishProvider, IChipPseudoProvider chipPseudoProvider, IGameIncomeProvider gameIncomeProvider, IChipSpawnerProvider chipSpawnerProvider)
+    public WinState_Game(IStateProvider stateProvider, UIRoot_Game sceneRoot, ISceneService sceneService, IFinishProvider finishProvider, IChipPseudoProvider chipPseudoProvider, IGameIncomeProvider gameIncomeProvider, IChipSpawnerProvider chipSpawnerProvider, ISoundProvider soundProvider)
     {
         _stateProvider = stateProvider;
         _sceneRoot = sceneRoot;
@@ -24,12 +27,22 @@ public class WinState_Game : AsyncState
         _chipPseudoProvider = chipPseudoProvider;
         _gameIncomeProvider = gameIncomeProvider;
         _chipSpawnerProvider = chipSpawnerProvider;
+        _soundProvider = soundProvider;
+        _soundBackground = soundProvider.GetSound("Background");
+        _soundWin = soundProvider.GetSound("Win");
     }
 
     protected override async UniTask EnterAsync(CancellationToken token)
     {
         _sceneRoot.OnClickExit_FinishButtons += ChangeSceneToMenu;
         _sceneRoot.OnClickRestart_FinishButtons += ChangeStateToRoulette;
+
+        _soundBackground.SetVolumeEnd(0f, 0.2f, () =>
+        {
+            _soundWin.SetVolumeEnd(1, 0.2f);
+            _soundWin.Play();
+
+        });
 
         _sceneRoot.HideMainHeaderPanel();
         _sceneRoot.HideMainPanel();
@@ -69,6 +82,12 @@ public class WinState_Game : AsyncState
 
     private void ChangeStateToRoulette()
     {
+        _soundWin.SetVolumeEnd(0f, 0.2f, () =>
+        {
+            _soundBackground.SetVolumeEnd(1, 0.2f);
+
+        });
+
         _chipPseudoProvider.Reload();
         _finishProvider.Reset();
         _gameIncomeProvider.Reset();

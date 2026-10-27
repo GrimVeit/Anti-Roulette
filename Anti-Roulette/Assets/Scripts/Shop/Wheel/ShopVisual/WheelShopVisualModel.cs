@@ -9,13 +9,15 @@ public class WheelShopVisualModel
     private readonly IWheelListener _wheelListener;
     private readonly IWheelProvider _wheelProvider;
     private readonly IMoneyProvider _moneyProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public WheelShopVisualModel(IWheelInfoProvider wheelInfoProvider, IWheelListener wheelListener, IWheelProvider wheelProvider, IMoneyProvider moneyProvider)
+    public WheelShopVisualModel(IWheelInfoProvider wheelInfoProvider, IWheelListener wheelListener, IWheelProvider wheelProvider, IMoneyProvider moneyProvider, ISoundProvider soundProvider)
     {
         _wheelInfoProvider = wheelInfoProvider;
         _wheelListener = wheelListener;
         _wheelProvider = wheelProvider;
         _moneyProvider = moneyProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -46,6 +48,8 @@ public class WheelShopVisualModel
             //NO MONEY
             return;
         }
+
+        _soundProvider.PlayOneShot("Click_Buy");
 
         _moneyProvider.ChangeMoney(-wheel.Price);
 

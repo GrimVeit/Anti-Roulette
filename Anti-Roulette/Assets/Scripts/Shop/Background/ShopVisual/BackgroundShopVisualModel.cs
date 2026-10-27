@@ -7,13 +7,15 @@ public class BackgroundShopVisualModel
     private readonly IBackgroundListener _backgroundListener;
     private readonly IBackgroundProvider _backgroundProvider;
     private readonly IMoneyProvider _moneyProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public BackgroundShopVisualModel(IBackgroundInfoProvider backgroundInfoProvider, IBackgroundListener backgroundListener, IBackgroundProvider backgroundProvider, IMoneyProvider moneyProvider)
+    public BackgroundShopVisualModel(IBackgroundInfoProvider backgroundInfoProvider, IBackgroundListener backgroundListener, IBackgroundProvider backgroundProvider, IMoneyProvider moneyProvider, ISoundProvider soundProvider)
     {
         _backgroundInfoProvider = backgroundInfoProvider;
         _backgroundListener = backgroundListener;
         _backgroundProvider = backgroundProvider;
         _moneyProvider = moneyProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -44,6 +46,8 @@ public class BackgroundShopVisualModel
             //NO MONEY
             return;
         }
+
+        _soundProvider.PlayOneShot("Click_Buy");
 
         _moneyProvider.ChangeMoney(-back.Price);
 

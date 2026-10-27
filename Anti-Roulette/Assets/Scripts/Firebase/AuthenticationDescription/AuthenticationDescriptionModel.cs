@@ -29,9 +29,12 @@ public sealed class AuthenticationDescriptionModel
 
     private readonly IAuthenticationEventsProvider _authenticationEventsProvider;
 
-    public AuthenticationDescriptionModel(IAuthenticationEventsProvider authenticationEventsProvider)
+    private readonly ISoundProvider _soundProvider;
+
+    public AuthenticationDescriptionModel(IAuthenticationEventsProvider authenticationEventsProvider, ISoundProvider soundProvider)
     {
         _authenticationEventsProvider = authenticationEventsProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -46,6 +49,11 @@ public sealed class AuthenticationDescriptionModel
 
     private void SetDescription(AuthenticationResult result)
     {
+        if (result == AuthenticationResult.Success)
+            _soundProvider.PlayOneShot("Registrate_Success");
+        else
+            _soundProvider.PlayOneShot("Registrate_Fail");
+
         if (!_descriptions.TryGetValue(result, out string description))
             return;
 
