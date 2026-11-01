@@ -29,8 +29,8 @@ public class UIRootView : MonoBehaviour
                 return;
             case LoadingType.Start:
 
-                fadeStaticPanel.Show();
-                await UniTask.WaitForSeconds(1);
+                fadeBlackPanel.Show();
+                await UniTask.WaitForSeconds(0.1f);
 
                 return;
             case LoadingType.Default:
@@ -53,8 +53,8 @@ public class UIRootView : MonoBehaviour
                 return;
             case LoadingType.Start:
 
-                fadeStaticPanel.Hide();
-                await UniTask.WaitForSeconds(1f);
+                fadeBlackPanel.Hide();
+                await UniTask.WaitForSeconds(0.1f);
 
                 return;
             case LoadingType.Default:

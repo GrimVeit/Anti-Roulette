@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190454760}
-  - component: {fileID: 190454762}
+  - component: {fileID: 190454761}
   m_Layer: 0
   m_Name: SceneEntryPoint
   m_TagString: Untagged
@@ -304,7 +304,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &190454762
+--- !u!114 &190454761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,12 +313,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 190454759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6db5d44f332d75f41bf75887e1971d80, type: 3}
+  m_Script: {fileID: 11500000, guid: f64513f74a6259a4ca0744192a44ec45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
   backgroundDatas: []
-  cardsDesignDatas: []
+  wheelDatas: []
+  chipDatas: []
   uIRoot: {fileID: 1552479689102697575, guid: c5235fb65d2dd124b8fa1a2016c3b45f, type: 3}
 --- !u!1 &1624560541
 GameObject:

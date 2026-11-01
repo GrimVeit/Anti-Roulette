@@ -181,8 +181,7 @@ public class VideoPlayers
 {
     [SerializeField] private List<VideoPlay> videoPlays = new();
 
-    public async UniTask Initialize(
-        CancellationToken cancellationToken)
+    public async UniTask Initialize(CancellationToken cancellationToken)
     {
         var prepareTasks = new List<UniTask>();
 

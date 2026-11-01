@@ -9,7 +9,7 @@ public sealed class FirebaseDatabaseModel : IDisposable
 {
     private const string DataNode = "Data";
     private const string UsersNode = "Users";
-    private const int RequestTimeoutSeconds = 7;
+    private const int RequestTimeoutSeconds = 9;
 
     private readonly FirebaseDatabase _database;
     private readonly CancellationTokenSource _disposeCts = new();

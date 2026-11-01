@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2908567635795087259}
+  fadeStartPanel: {fileID: 0}
   fadeBlackPanel: {fileID: 949440542293590543}
   fadeStaticPanel: {fileID: 7306718757974427317}
   uiSceneContainer: {fileID: 6595654200273532114}
