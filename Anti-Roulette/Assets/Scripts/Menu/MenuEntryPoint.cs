@@ -1,7 +1,5 @@
 using BaCon;
 using Cysharp.Threading.Tasks;
-using Firebase.Auth;
-using Firebase.Database;
 using UnityEngine;
 
 public class MenuEntryPoint : SceneEntryPoint
@@ -14,9 +12,9 @@ public class MenuEntryPoint : SceneEntryPoint
     private VolumeSettingsPresenter _volumeSettingsPresenter;
     private MoneyVisualPresenter _moneyVisualPresenter;
 
-    private FirebaseAuthenticationPresenter _firebaseAuthenticationPresenter;
-    private FirebasePlayerDatabasePresenter _firebasePlayerDatabasePresenter;
-    private FirebaseDatabasePresenter _firebaseDatabasePresenter;
+    private SupabaseAuthenticationPresenter _supabaseAuthenticationPresenter;
+    private SupabasePlayerDatabasePresenter _supabasePlayerDatabasePresenter;
+    private SupabaseDatabasePresenter _supabaseDatabasePresenter;
     private AuthenticationDescriptionPresenter _authenticationDescriptionPresenter;
     private ProfileNicknameInputPresenter _profileNicknameInputPresenter;
     private LeaderboardPresenter _leaderboardPresenter;
@@ -78,8 +76,8 @@ public class MenuEntryPoint : SceneEntryPoint
         await OnSceneShuttingDown();
         await base.ShutDown();
 
-        _firebaseDatabasePresenter?.Cancel();
-        _firebasePlayerDatabasePresenter?.Cancel();
+        _supabaseDatabasePresenter?.Cancel();
+        _supabasePlayerDatabasePresenter?.Cancel();
 
         _authenticationDescriptionPresenter?.Dispose();
         _profileNicknameInputPresenter?.Dispose();
@@ -109,24 +107,19 @@ public class MenuEntryPoint : SceneEntryPoint
     protected override UniTask OnBaseInitialized(DIContainer container)
     {
         //-----------------------FIREBASE---------------------//
+        _supabaseAuthenticationPresenter = new SupabaseAuthenticationPresenter(new SupabaseAuthenticationModel(container.Resolve<ISupabaseProvider>().Client));
+        container.RegisterInstance<IAuthenticationInfoProvider>(_supabaseAuthenticationPresenter);
+        container.RegisterInstance<IAuthenticationProvider>(_supabaseAuthenticationPresenter);
 
-        FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
-        FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
-        FirebaseDatabase database = FirebaseDatabase.DefaultInstance;
+        _supabasePlayerDatabasePresenter = new SupabasePlayerDatabasePresenter(new SupabasePlayerDatabaseModel(container.Resolve<ISupabaseProvider>().Client, _supabaseAuthenticationPresenter));
+        container.RegisterInstance<IPlayerDatabaseProvider>(_supabasePlayerDatabasePresenter);
 
-        _firebaseAuthenticationPresenter = new FirebaseAuthenticationPresenter(new FirebaseAuthenticationModel(firebaseAuth));
-        container.RegisterInstance<IAuthenticationInfoProvider>(_firebaseAuthenticationPresenter);
-        container.RegisterInstance<IAuthenticationProvider>(_firebaseAuthenticationPresenter);
+        _supabaseDatabasePresenter = new SupabaseDatabasePresenter(new SupabaseDatabaseModel(container.Resolve<ISupabaseProvider>().Client));
+        container.RegisterInstance<IDatabaseProvider>(_supabaseDatabasePresenter);
 
-        _firebasePlayerDatabasePresenter = new FirebasePlayerDatabasePresenter(new FirebasePlayerDatabaseModel(database, _firebaseAuthenticationPresenter));
-        container.RegisterInstance<IPlayerDatabaseProvider>(_firebasePlayerDatabasePresenter);
+        _leaderboardPresenter = new LeaderboardPresenter(new LeaderboardModel(_supabaseDatabasePresenter), _viewContainer.GetView<LeaderboardView>());
 
-        _firebaseDatabasePresenter = new FirebaseDatabasePresenter(new FirebaseDatabaseModel(database));
-        container.RegisterInstance<IDatabaseProvider>(_firebaseDatabasePresenter);
-
-        _leaderboardPresenter = new LeaderboardPresenter(new LeaderboardModel(_firebaseDatabasePresenter), _viewContainer.GetView<LeaderboardView>());
-
-        _authenticationDescriptionPresenter = new AuthenticationDescriptionPresenter(new AuthenticationDescriptionModel(_firebaseAuthenticationPresenter, _soundPresenter), _viewContainer.GetView<AuthenticationDescriptionView>());
+        _authenticationDescriptionPresenter = new AuthenticationDescriptionPresenter(new AuthenticationDescriptionModel(_supabaseAuthenticationPresenter, _soundPresenter), _viewContainer.GetView<AuthenticationDescriptionView>());
 
         _profileNicknameInputPresenter = new ProfileNicknameInputPresenter(new ProfileNicknameInputModel(_storePlayerProfilePresenter), _viewContainer.GetView<ProfileNicknameInputView>());
 

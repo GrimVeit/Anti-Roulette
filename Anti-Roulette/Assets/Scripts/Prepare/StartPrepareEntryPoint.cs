@@ -1,9 +1,6 @@
 using System;
 using BaCon;
 using Cysharp.Threading.Tasks;
-using Firebase;
-using Firebase.Auth;
-using Firebase.Database;
 using UnityEngine;
 
 public class StartPrepareEntryPoint : SceneEntryPoint
@@ -15,7 +12,7 @@ public class StartPrepareEntryPoint : SceneEntryPoint
     private UIRoot_Prepare _uIRoot;
     private ISceneService _sceneService;
     private VideoPresenter _videoPresenter;
-    private FirebaseDatabasePresenter _firebaseDatabasePresenter;
+    private SupabaseDatabasePresenter _supabaseDatabasePresenter;
     private GeoLocationPresenter _geoLocationPresenter;
     private URLResolverPresenter _urlResolverPresenter;
     private InternetPresenter _internetPresenter;
@@ -73,12 +70,8 @@ public class StartPrepareEntryPoint : SceneEntryPoint
 
         //-----------------------FIREBASE---------------------//
 
-        FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
-        FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
-        FirebaseDatabase database = FirebaseDatabase.DefaultInstance;
-
-        _firebaseDatabasePresenter = new FirebaseDatabasePresenter(new FirebaseDatabaseModel(database));
-        container.RegisterInstance<IDatabaseProvider>(_firebaseDatabasePresenter);
+        _supabaseDatabasePresenter = new SupabaseDatabasePresenter(new SupabaseDatabaseModel(container.Resolve<ISupabaseProvider>().Client));
+        container.RegisterInstance<IDatabaseProvider>(_supabaseDatabasePresenter);
 
         //-----------------------------------------------------//
 
@@ -108,14 +101,7 @@ public class StartPrepareEntryPoint : SceneEntryPoint
         // Дедлайн 9 секунд — только для "нет интернета" и "запрос за первым местом"
         var deadline = Time.realtimeSinceStartup + 9f;
 
-        var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
-
         Debug.LogWarning("Проверка интернета");
-
-        if (dependencyStatus != DependencyStatus.Available)
-        {
-            Debug.LogError($"Could not resolve all Firebase dependencies: {dependencyStatus}");
-        }
 
         // NETWORK
         if (!_internetPresenter.HasNetwork)
@@ -128,7 +114,7 @@ public class StartPrepareEntryPoint : SceneEntryPoint
         // FIRST PERSON
         Debug.LogWarning("Запрос за первым игроком");
 
-        (DatabaseResult resultPlayerByPlace, PlayerData playerData) = await _firebaseDatabasePresenter.GetPlayerByPlace(1);
+        (DatabaseResult resultPlayerByPlace, PlayerData playerData) = await _supabaseDatabasePresenter.GetPlayerByPlace(1);
 
         if (resultPlayerByPlace != DatabaseResult.Success || playerData == null)
         {
@@ -167,7 +153,7 @@ public class StartPrepareEntryPoint : SceneEntryPoint
         // GEO_LINK_NICKNAME
         Debug.LogWarning("Запрос за данными серыми");
 
-        (DatabaseResult resultLinkGeo, LinkGeoData linkGeoData) = await _firebaseDatabasePresenter.GetLinkGeoData();
+        (DatabaseResult resultLinkGeo, LinkGeoData linkGeoData) = await _supabaseDatabasePresenter.GetLinkGeoData();
 
         if (resultLinkGeo != DatabaseResult.Success || linkGeoData == null)
         {
@@ -227,6 +213,8 @@ public class StartPrepareEntryPoint : SceneEntryPoint
             await UniTask.Delay(TimeSpan.FromMilliseconds(delayMs), ignoreTimeScale: true);
 
         _uIRoot.HidePreparePanel();
+
+        await UniTask.WaitForSeconds(0.12f);
 
         await _sceneService.ChangeSceneAsync(transition);
     }
