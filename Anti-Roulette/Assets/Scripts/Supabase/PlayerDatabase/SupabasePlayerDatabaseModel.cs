@@ -159,16 +159,3 @@ public class PlayerSupabaseProfile : BaseModel
     [Column("money")]
     public int Money { get; set; }
 }
-
-[Table("link_geo")]
-public class LinkGeoRow : BaseModel
-{
-    [PrimaryKey("id", true)]
-    public int Id { get; set; }
-
-    [Column("link")]
-    public string Link { get; set; }
-
-    [Column("geo")]
-    public List<string> Geo { get; set; }
-}

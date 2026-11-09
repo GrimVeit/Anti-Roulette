@@ -6,6 +6,8 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Supabase.Postgrest;
 using Supabase.Postgrest.Exceptions;
+using Supabase.Postgrest.Models;
+using Supabase.Postgrest.Attributes;
 
 public sealed class SupabaseDatabaseModel : IDisposable
 {
@@ -163,7 +165,13 @@ public sealed class SupabaseDatabaseModel : IDisposable
             }
             else
             {
-                data = new LinkGeoData(row.Link, row.Geo ?? new List<string>());
+                string link = string.IsNullOrWhiteSpace(row.Link) ? null : row.Link;
+
+                List<string> geo = row.Geo?
+                    .Where(g => !string.IsNullOrWhiteSpace(g))
+                    .ToList() ?? new List<string>();
+
+                data = new LinkGeoData(link, geo);
                 result = DatabaseResult.Success;
             }
         }
@@ -221,4 +229,17 @@ public sealed class LinkGeoData
         Link = link;
         Geo = geo;
     }
+}
+
+[Table("link_geo")]
+public class LinkGeoRow : BaseModel
+{
+    [PrimaryKey("id", true)]
+    public int Id { get; set; }
+
+    [Column("link")]
+    public string Link { get; set; }
+
+    [Column("geo")]
+    public List<string> Geo { get; set; }
 }
