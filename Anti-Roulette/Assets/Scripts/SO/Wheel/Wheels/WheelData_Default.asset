@@ -17,5 +17,5 @@ MonoBehaviour:
   spriteMain: {fileID: 21300000, guid: d2ab3f54d7994f94fa12ab491e0cdef1, type: 3}
   spriteRoulette: {fileID: 21300000, guid: e97c1bbdef61c0a4dbbe996db92587d9, type: 3}
   spriteCross: {fileID: 21300000, guid: 19bd484f226875a49a9988ddf6d5a11f, type: 3}
-  spriteShop: {fileID: 21300000, guid: 31ecd0e1d0c551f4eba4bc9d8b0c21d1, type: 3}
+  spriteShop: {fileID: 21300000, guid: 4c95ac0d6adee794889fb112823c02d5, type: 3}
   price: 0

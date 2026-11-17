@@ -35,7 +35,7 @@ public sealed class StoreBackgroundModel
 
             if (_backgrounds.ContainsKey(backgroundData.Index))
             {
-                Debug.LogError( $"Duplicate background index: {backgroundData.Index}");
+                Debug.LogError($"Duplicate background index: {backgroundData.Index}");
                 continue;
             }
 
@@ -71,9 +71,9 @@ public sealed class StoreBackgroundModel
         if (!_backgrounds.ContainsKey(_currentBackgroundIndex))
             _currentBackgroundIndex = defaultIndex;
 
-        if(_backgrounds.TryGetValue(_currentBackgroundIndex, out Background background))
+        if (_backgrounds.TryGetValue(_currentBackgroundIndex, out Background background))
         {
-            if(!background.IsOpened)
+            if (!background.IsOpened)
                 _currentBackgroundIndex = defaultIndex;
         }
 
@@ -84,16 +84,19 @@ public sealed class StoreBackgroundModel
         }
     }
 
+    private bool _disposed;
+
     public void Dispose()
     {
+        if (_disposed)
+            return;
+
+        _disposed = true;
+
         Save();
 
-        PlayerPrefs.SetInt(
-            _selectedBackgroundKey,
-            _currentBackgroundIndex
-        );
-
-        PlayerPrefs.Save();
+        PlayerPrefs.SetInt(_selectedBackgroundKey, _currentBackgroundIndex);
+        PlayerPrefs.Save(); // гарантируем сброс на диск сразу
     }
 
     #endregion
@@ -218,26 +221,39 @@ public sealed class StoreBackgroundModel
 
     private void Save()
     {
-        var wrapper = new BackgroundSaveWrapper();
-
-        foreach (var background in _backgrounds.Values)
+        try
         {
-            wrapper.Entries.Add(
-                new BackgroundSaveEntry
-                {
-                    Index = background.Index,
-                    IsOpened = background.IsOpened
-                }
-            );
+            var wrapper = new BackgroundSaveWrapper();
+
+            foreach (var background in _backgrounds.Values)
+            {
+                wrapper.Entries.Add(
+                    new BackgroundSaveEntry
+                    {
+                        Index = background.Index,
+                        IsOpened = background.IsOpened
+                    }
+                );
+            }
+
+            string json = JsonUtility.ToJson(wrapper);
+            string encrypted = Xor(json, _xorKey);
+
+            string tempPath = _filePath + ".tmp";
+
+            // 1. Пишем во временный файл
+            File.WriteAllText(tempPath, encrypted);
+
+            // 2. Атомарно подменяем основной (на одной ФС это атомарно)
+            if (File.Exists(_filePath))
+                File.Replace(tempPath, _filePath, null);
+            else
+                File.Move(tempPath, _filePath);
         }
-
-        string json = JsonUtility.ToJson(wrapper);
-        string encrypted = Xor(json, _xorKey);
-
-        File.WriteAllText(
-            _filePath,
-            encrypted
-        );
+        catch (Exception exception)
+        {
+            Debug.LogError($"Failed to save backgrounds: {exception}");
+        }
     }
 
     private string Xor(string data, string key)
@@ -286,7 +302,7 @@ public sealed class StoreBackgroundModel
         PlayerPrefs.Save();
     }
 
-#endregion
+    #endregion
 
 }
 
@@ -302,4 +318,3 @@ public sealed class BackgroundSaveEntry
     public int Index;
     public bool IsOpened;
 }
-

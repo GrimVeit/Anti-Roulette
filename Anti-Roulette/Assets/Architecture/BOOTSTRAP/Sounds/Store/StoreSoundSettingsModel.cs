@@ -39,8 +39,6 @@ public class StoreSoundSettingsModel
     {
         PlayerPrefs.SetInt(muteKey_Sound, IsMuted_Sound ? 1 : 0);
         PlayerPrefs.SetInt(muteKey_Music, IsMuted_Music ? 1 : 0);
-
-        PlayerPrefs.Save();
     }
 
     public void SetMute_Sound(bool value)

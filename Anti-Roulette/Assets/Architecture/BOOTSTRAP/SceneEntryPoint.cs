@@ -116,6 +116,8 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
 
     public virtual async UniTask ShutDown()
     {
+        Debug.Log("CHANGE SCENE - SAVE");
+
         _storeMoneyPresenter?.Dispose();
         _storeSoundSettingsPresenter?.Dispose();
         _storeBackgroundPresenter?.Dispose();
@@ -154,8 +156,6 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
     private void SaveApplicationData()
     {
         OnApplicationSaving();
-
-        PlayerPrefs.Save();
     }
 
     // -----------------------------------------------------
@@ -185,6 +185,8 @@ public abstract class SceneEntryPoint : MonoBehaviour, ISceneEntry
     /// </summary>
     protected virtual void OnApplicationSaving()
     {
+        Debug.Log("EXTREMAL SAVE");
+
         _storeSoundSettingsPresenter?.Dispose();
         _storeMoneyPresenter?.Dispose();
         _storeBackgroundPresenter?.Dispose();

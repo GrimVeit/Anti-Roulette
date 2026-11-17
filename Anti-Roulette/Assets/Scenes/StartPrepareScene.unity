@@ -317,9 +317,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
-  backgroundDatas: []
-  wheelDatas: []
-  chipDatas: []
+  backgroundDatas:
+  - {fileID: 11400000, guid: e1e96b7d819828a4582564e033f6e659, type: 2}
+  - {fileID: 11400000, guid: 47be716dd60fa97408679b53c6c8cb27, type: 2}
+  - {fileID: 11400000, guid: 483a5d93aeba0aa4e8e64b4627f89a89, type: 2}
+  - {fileID: 11400000, guid: af2667c6fb92e1c4da611d283a9bcc4c, type: 2}
+  - {fileID: 11400000, guid: 5abcf02bba4ff3b4da37bf83b484d915, type: 2}
+  wheelDatas:
+  - {fileID: 11400000, guid: d2e615c417fa30e4d99f221996bf7222, type: 2}
+  - {fileID: 11400000, guid: ad514f02dd4209f44815acb6eb2bbcf2, type: 2}
+  - {fileID: 11400000, guid: c42641e805098db4b9613528447f396d, type: 2}
+  - {fileID: 11400000, guid: 9606c4463880a8840b2a0d2ed590965c, type: 2}
+  - {fileID: 11400000, guid: 4375fa4262d2e4f4ebd3b7732fdabb26, type: 2}
+  chipDatas:
+  - {fileID: 11400000, guid: 788ac4fe840ea674ea62843d121a65b5, type: 2}
+  - {fileID: 11400000, guid: 85daf87f813db5640865b6c5710721fb, type: 2}
+  - {fileID: 11400000, guid: 23f292ba6f01c1346be2cf1f01ad5c3e, type: 2}
+  - {fileID: 11400000, guid: 682ecc827be92d34489ca9f31d2029f5, type: 2}
+  - {fileID: 11400000, guid: 4186bf8c7301c0149a61b57a96af8d45, type: 2}
+  - {fileID: 11400000, guid: 17a459aca124b534288354e53e5c666e, type: 2}
+  - {fileID: 11400000, guid: b47cf06b0fad75849b14b7e97a99edb5, type: 2}
+  - {fileID: 11400000, guid: b45d6b0ea7e91914fa24189837cd29f6, type: 2}
+  - {fileID: 11400000, guid: 5cb883358b9a1774ab17f683eec0069c, type: 2}
+  - {fileID: 11400000, guid: f349cff9f7b07f34cb43d52acc62fc9e, type: 2}
+  - {fileID: 11400000, guid: 08431c30df849334b958237e1daa9bba, type: 2}
   uIRoot: {fileID: 1552479689102697575, guid: c5235fb65d2dd124b8fa1a2016c3b45f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

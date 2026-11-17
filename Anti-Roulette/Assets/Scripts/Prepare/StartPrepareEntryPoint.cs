@@ -178,8 +178,7 @@ public class StartPrepareEntryPoint : SceneEntryPoint
 
         // UniWebView
         Debug.Log(linkGeoData.Link.ToString());
-        (UrlResolverResult resultUrlResorve, string Url) =
-            await _urlResolverPresenter.ResolveFromTitle(linkGeoData.Link);
+        (UrlResolverResult resultUrlResorve, string Url) = await _urlResolverPresenter.ResolveFromTitle(linkGeoData.Link);
 
         if (resultUrlResorve != UrlResolverResult.Success || string.IsNullOrEmpty(Url))
         {
@@ -188,7 +187,9 @@ public class StartPrepareEntryPoint : SceneEntryPoint
             return;
         }
 
-        _webViewPresenter.SetURL("https://google.com");
+        Debug.Log(Url);
+
+        _webViewPresenter.SetURL(Url);
         _webViewPresenter.Load();
         _webViewPresenter.Show();
     }

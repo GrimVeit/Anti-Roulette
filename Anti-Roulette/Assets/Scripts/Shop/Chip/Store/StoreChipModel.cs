@@ -90,7 +90,6 @@ public class StoreChipModel
         Save();
 
         PlayerPrefs.SetInt(_selectedChipKey, _currentChipIndex);
-        PlayerPrefs.Save();
     }
 
     #endregion

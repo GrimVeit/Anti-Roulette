@@ -24,7 +24,6 @@ public class StoreMoneyModel
     public void Dispose()
     {
         PlayerPrefs.SetInt(_moneyKey,Money);
-        PlayerPrefs.Save();
     }
 
     public void ChangeMoney(int amount)

@@ -46,7 +46,7 @@ public class VideoView : View
         var vp = videoPlay.VideoPlayer;
 
         videoPlay.Image.texture = videoPlay.Texture;
-        videoPlay.Image.enabled = false;
+        videoPlay.Image.enabled = true;
 
         vp.Stop();
         vp.frame = 0;
@@ -97,7 +97,7 @@ public class VideoView : View
         // Главное:
         // RawImage скрыт, пока первый нормальный кадр
         // реально не попадёт в RenderTexture.
-        videoPlay.Image.enabled = false;
+        videoPlay.Image.enabled = true;
 
         // Если видео ещё не подготовлено,
         // сначала ждём подготовку.
@@ -166,7 +166,7 @@ public class VideoView : View
 
         // Сначала скрываем изображение,
         // чтобы пользователь не увидел старый/переходный кадр.
-        videoPlay.Image.enabled = false;
+        videoPlay.Image.enabled = true;
 
         vp.Stop();
 

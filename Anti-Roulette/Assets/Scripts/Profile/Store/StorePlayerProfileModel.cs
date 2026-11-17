@@ -60,8 +60,6 @@ public sealed class StorePlayerProfileModel : IDisposable
 
         PlayerPrefs.SetString(_nicknameKey, _profile.Nickname);
         PlayerPrefs.SetInt(_avatarKey, _profile.Avatar);
-
-        PlayerPrefs.Save();
     }
 
     public bool IsValidAvatar(int index)

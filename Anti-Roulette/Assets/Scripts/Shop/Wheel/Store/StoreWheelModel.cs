@@ -91,7 +91,6 @@ public class StoreWheelModel
         Save();
 
         PlayerPrefs.SetInt(_selectedWheelKey, _currentWheelIndex);
-        PlayerPrefs.Save();
     }
 
     #endregion
